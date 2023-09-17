@@ -1,0 +1,277 @@
+[
+    {
+        "name": "Sun",
+        "texture": "sun.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 0, 
+            "y" : 0
+        },
+        "scaleCoords": {
+            "x" : 0.4, 
+            "y" : 0.4, 
+            "z" : 0.4
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 0,
+        "emissiveMaterial" : {
+            "color" : "0xffffff"
+        }
+    },
+    {
+        "name": "Mercury",
+        "texture": "mercury.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 1,
+            "y" : 0.93
+        },
+        "scaleCoords": {
+            "x" : 0.1, 
+            "y" : 0.1, 
+            "z" : 0.1
+        },
+        "rotationCoords": {
+            "x" : 0,
+            "y" : 0, 
+            "z" : 0.03
+        },
+        "speedCoef": 1.2,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Sun"
+    },
+    {
+        "name": "Venus",
+        "texture": "venus.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 1.8, 
+            "y" : 1.5
+        },
+        "scaleCoords": {
+            "x" : 0.15, 
+            "y" : 0.15, 
+            "z" : 0.15
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : -0.02
+        },
+        "speedCoef": 1.4,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Mercury"
+    },
+    {
+        "name": "Earth",
+        "texture": "earth.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3,
+            "y" : 2.6
+        },
+        "scaleCoords": {
+            "x" : 0.2, 
+            "y" : 0.2, 
+            "z" : 0.2
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.017
+        },
+        "speedCoef": 1.6,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Venus"
+    },
+    {
+        "name": "Mars",
+        "texture": "mars.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 4.5, 
+            "y" : 3.7
+        },
+        "scaleCoords": {
+            "x" : 0.15, 
+            "y" : 0.15, 
+            "z" : 0.15
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.01
+        },
+        "speedCoef": 1.8,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Earth"
+    },
+    {
+        "name": "Jupiter",
+        "texture": "jupiter.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 5.5, 
+            "y" : 4.9
+        },
+        "scaleCoords": {
+            "x" : 0.23, 
+            "y" : 0.23, 
+            "z" : 0.23
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0,
+            "z" : 0.02
+        },
+        "speedCoef": 2,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Mars"
+    },
+    {
+        "name": "Saturn",
+        "texture": "saturn.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 7, 
+            "y" : 6.5
+        },
+        "scaleCoords": {
+            "x" : 0.23, 
+            "y" : 0.23, 
+            "z" : 0.23
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.012
+        },
+        "speedCoef": 2.4,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Jupiter",
+        "ring" : {
+            "innerRadius" : 1.2, 
+            "outerRadius" : 2.1, 
+            "thetaSegments" : 50, 
+            "phiSegments" : 1,
+            "texture" : "saturn-ring.jpg", 
+            "isTransparent" : true, 
+            "opacity" : 0.9,
+            "rotationCoords": {
+                "x" : 4, 
+                "y" : 0, 
+                "z" : 0
+            }
+        }
+    },
+    {
+        "name": "Uranus",
+        "texture": "uranus.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 9, 
+            "y" : 8.3
+        },
+        "scaleCoords": {
+            "x" : 0.2, 
+            "y" : 0.2, 
+            "z" : 0.2
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : -0.009
+        },
+        "speedCoef": 2.8,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Saturn"
+    },
+    {
+        "name": "Neptune",
+        "texture": "neptune.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 10.5,
+            "y" : 9.8
+        },
+        "scaleCoords": {
+            "x" : 0.2, 
+            "y" : 0.2, 
+            "z" : 0.2
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.008
+        },
+        "speedCoef": 3.2,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Uranus"
+    },
+    {
+        "name": "Pluto",
+        "texture": "pluto.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 12,
+            "y" : 11.3
+        },
+        "scaleCoords": {
+            "x" : 0.05, 
+            "y" : 0.05, 
+            "z" : 0.05
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3.7,
+        "hostPlanet": "Sun",
+        "previousPlanet": "Neptune"
+    }
+]

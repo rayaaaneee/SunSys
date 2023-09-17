@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="module" src="/main.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SunSys - Universe explorer</title>
+  </head>
+  <body>
+    <div id="configPanel">
+      <div id="closePanel" title="Fermer"></div>
+      <img id="hiddenLogo" src="./asset/img/control-panel.png" alt="Panneau de controle" title="Panneau de configuration"/>
+      <p class="title-panel">Panneau de configuration</p>
+      <div class="parameters">
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Eclairer entièrement</p>
+          <input id="bigLight" type="checkbox"/>
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Afficher les orbites des planètes</p>
+          <input type="checkbox" id="planetLinks" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Afficher les orbites des satellites</p>
+          <input type="checkbox" id="satelliteLinks" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Trajectoires des orbites des planètes</p>
+          <input type="checkbox" checked id="orbitPath" />
+        </div>
+        <div class="panel-opt">
+          <p class="title-opt">• Tracer le parcours des satellites</p>
+          <input type="checkbox" id="orbitPathSat" />
+        </div>
+        <div class="panel-opt">
+          <p class="title-opt">• Relier les planètes</p>
+          <input type="checkbox" id="linkPlanets" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Aligner les planètes</p>
+          <input type="checkbox" id="alignPlanets" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Cacher les satellites</p>
+          <input type="checkbox" id="hideSatellites" />
+        </div>
+        <div class="panel-opt">
+          <p class="title-opt">• Afficher la ceinture d'asteroides</p>
+          <input type="checkbox" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Inverser l'écoulement du temps</p>
+          <input type="checkbox" id="invertTime"/>
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Afficher les FPS</p>
+          <input type="checkbox" id="showFps"/>
+        </div>
+        <div class="panel-opt">
+          <p class="title-opt">• Vitesse</p>
+          <input id="changeSpeedRange" type="range" />
+        </div>
+        <!-- Ok -->
+        <div class="panel-opt">
+          <p class="title-opt">• Arrêter le temps</p>
+          <button id="stopTime"></button>
+        </div>
+      </div>
+    </div>
+    <div id="tag">
+      <p>By Rayane Merlin</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+@font-face {
+  font-family: 'Nexa'; /* Nom de votre police personnalisée */
+  src: url('asset/font/Nexa-ExtraLight.woff2') format('woff2'), /* Chemin vers le fichier WOFF2 */
+       url('asset/font/Nexa-Heavy.woff2') format('woff2'); /* Chemin vers le fichier WOFF */
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: Nexa;
+}
+
+body {
+  overflow: hidden;
+  background-attachment: fixed;
+  background-color: black;
+
+  margin: 0;
+}
+
+canvas { width: 100%; height: 90% }
+
+#configPanel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 330px;
+  height: fit-content;
+  background-color: rgb(151 194 197 / 57%);
+  color: white;
+  font-family: sans-serif;
+  font-size: 12px;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+#configPanel #closePanel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(206, 171, 177, 0.8);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 100;
+}
+
+#configPanel #closePanel:hover {
+  background-color: rgb(224, 95, 117);
+}
+
+#configPanel #hiddenLogo {
+  display: none;
+}
+
+#configPanel .parameters, #configPanel .title-panel{
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  animation: opacityUp 0.2s forwards 0.1s;
+}
+
+@keyframes opacityUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#configPanel.hidden {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+#configPanel.hidden:hover {
+  background-color: rgb(151 194 197 / 80%);
+}
+
+#configPanel.hidden p, #configPanel.hidden div {
+  display: none;
+}
+
+#configPanel.hidden #hiddenLogo {
+  display: block;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  opacity: 0;
+  animation: opacityUp 0.2s forwards 0.1s;
+}
+
+.title-panel {
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.panel-opt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.panel-opt #stopTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: none;
+}
+
+.panel-opt #stopTime:hover {
+  background-color: rgba(219, 124, 140, 0.8);
+}
+
+.panel-opt #stopTime.active {
+  background-color: rgb(212, 34, 64);
+}
+
+.panel-opt p {
+  letter-spacing: 1.4px;
+  margin: 0;
+  font-weight: 600;
+}
+
+#tag {
+  background-color: aliceblue;
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+#tag p {
+  margin-left: 10px;
+  font-weight: 600;
+}

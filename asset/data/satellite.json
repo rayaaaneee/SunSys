@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Moon",
+        "texture": "moon.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Earth"
+    }
+]
