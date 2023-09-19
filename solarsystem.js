@@ -57,6 +57,7 @@ export class SolarSystem {
     isPreviousPlanetLinkVisible = false;
 
     constructor() {
+
         // On initialise la scène
         this.renderer.setClearColor(0x000000, 0);
         this.renderer.setSize( window.innerWidth, window.innerHeight );
@@ -382,6 +383,10 @@ export class SolarSystem {
     }
 
     render() {
+        this.#renderAnimation();
+    }
+
+    #renderAnimation() {
         // On associe la méthode render de la classe associé à l'objet courant à l'animation, la fonction sera appelée à chaque frame d'animation
         this.animationFrameRequestId = requestAnimationFrame( this.render.bind(this) );
 

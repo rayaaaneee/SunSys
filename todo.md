@@ -11,3 +11,5 @@
 ## Traduire le tout en anglais
 
 ## Ajouter les ombres des planètes
+
+## Donner une largeur à l'anneau de saturne avec extrudeGeometry

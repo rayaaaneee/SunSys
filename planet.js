@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { SpaceObject } from './SpaceObject';
 
 // Fonction qui permet de définir une valeur en fonction de l'environnement
 const isProduction = (productionValue, devValue = null) => {
@@ -10,7 +11,7 @@ const isProduction = (productionValue, devValue = null) => {
     return null;
 }
 
-export class Planet {
+export class Planet extends SpaceObject {
 
     // Attributs
     around = 3; // Arrondi des coordonnées
@@ -64,6 +65,8 @@ export class Planet {
     oldRotate; // Mémorise la rotation de la planète avant l'alignement des planetes
 
     constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, previousPlanet) {
+
+        super();
 
         this.solarSystem = solarSystem;
         this.name = name;
@@ -374,7 +377,7 @@ export class Planet {
 
     addRing(innerRadius, outerRadius, thetaSegments, phiSegments, texture, isTransparent, opacity, rotationCoords, position = [0, 0, 0]) {
         const ring = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments);
-      
+
         // Générer les coordonnées UV personnalisées, arrondir l'image de texture à l'intérieur de l'anneau
         const uvs = ring.attributes.uv.array;
         for (let i = 0; i < uvs.length; i += 2) {
@@ -406,10 +409,10 @@ export class Planet {
         ringMesh.rotation.set(rotationCoords[0], rotationCoords[1], rotationCoords[2]);
         ringMesh.receiveShadow = true;
         ringMesh.castShadow = true;
-      
+
         this.ring = ringMesh;
         this.#mesh.add(ringMesh);
-      }
+    }
 
     removeRing() {
         this.#mesh.remove(this.ring);

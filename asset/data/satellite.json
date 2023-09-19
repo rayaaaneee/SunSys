@@ -23,5 +23,180 @@
         },
         "speedCoef": 3,
         "hostPlanet": "Earth"
+    },
+    {
+        "name": "Io",
+        "texture": "io.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Jupiter"
+    },
+    {
+        "name": "Europa", 
+        "texture": "europa.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Jupiter"
+    },
+    {
+        "name": "Titan",
+        "texture": "titan.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Saturn"
+    },
+    {
+        "name": "Enceladus",
+        "texture": "enceladus.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Saturn"
+    },
+    {
+        "name": "Phobos",
+        "texture": "phobos.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Mars"
+    }, 
+    {
+        "name": "Deimos",
+        "texture": "deimos.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Mars"
+    }, 
+    {
+        "name": "Triton",
+        "texture": "triton.jpg",
+        "initCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0
+        },
+        "moveCoords": {
+            "x" : 3, 
+            "y" : 2.84
+        },
+        "scaleCoords": {
+            "x" : 0.5, 
+            "y" : 0.5, 
+            "z" : 0.5
+        },
+        "rotationCoords": {
+            "x" : 0, 
+            "y" : 0, 
+            "z" : 0.02
+        },
+        "speedCoef": 3,
+        "hostPlanet": "Neptune"
     }
 ]
