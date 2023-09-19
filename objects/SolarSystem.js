@@ -42,7 +42,7 @@ export class SolarSystem {
     satellites = [];
 
     // Ensemble des astres du systeme solaire
-    solarSystemPlanets = [];
+    spaceObjects = [];
 
     // Valeurs
     baseSpeed = 0.0001;
@@ -56,6 +56,7 @@ export class SolarSystem {
     isOrbitSatelliteLinkVisible = false;
     isSatelliteRouteCreating = false;
     isPreviousPlanetLinkVisible = false;
+    areAlignedPlanets = false;
 
     constructor() {
 
@@ -178,41 +179,43 @@ export class SolarSystem {
 
     alignPlanets() {
         this.lastValueForTicks = this.ticks;
-        this.baseSpeed = 0;
         if (this.isSatelliteRouteCreating) {
             this.satellites.forEach((satellite) => {
                 satellite.disappearTracedOrbitPath();
             });
         }
+        this.planets.forEach((planet) => {
+            planet.setBaseSpeed(0);
+        });
+        this.areAlignedPlanets = true;
         this.#memorizeOldPlanetsRotation();
     }
 
     desalignPlanets() {
         this.ticks = this.lastValueForTicks;
-        this.baseSpeed = this.initialBaseSpeed;
         this.lastValueForTicks = 0;
         if (this.isSatelliteRouteCreating) {
             this.satellites.forEach((satellite) => {
                 satellite.traceOrbitPath();
             });
         }
+        this.planets.forEach((planet) => {
+            planet.setInitialBaseSpeed();;
+        });
+        this.areAlignedPlanets = false;
         this.#setOldPlanetsRotation();
     }
 
     #memorizeOldPlanetsRotation() {
-        this.solarSystemPlanets.forEach((planet) => {
-            planet.memorizeCurrentRotation();
+        this.spaceObjects.forEach((spaceObject) => {
+            spaceObject.memorizeCurrentRotation();
         });
     }
 
     #setOldPlanetsRotation() {
-        this.solarSystemPlanets.forEach((planet) => {
-            planet.setMemorizedOldRotation();
+        this.spaceObjects.forEach((spaceObject) => {
+            spaceObject.setMemorizedOldRotation();
         });
-    }
-
-    areAlignedPlanets() {
-        return this.baseSpeed === 0;
     }
 
     invertTime() {
@@ -385,7 +388,7 @@ export class SolarSystem {
             this.#createSpaceObjects(satellite);
         });
 
-        this.solarSystemPlanets = [...this.planets, ...this.satellites];
+        this.spaceObjects = [...this.planets, ...this.satellites];
 
         this.pointLight.position.set(0, 0, 0);
         this.scene.add(this.pointLight);
@@ -421,18 +424,18 @@ export class SolarSystem {
             teta = this.lastValueForSpeed;
         }
 
-        this.solarSystemPlanets.forEach((planet) => {
-            planet.changePosition(teta, this.baseSpeed);
+        this.spaceObjects.forEach((spaceObject) => {
+            spaceObject.changePosition(teta);
         });
 
         if ( !this.isTimeStopped && !this.timeIsInverted) {
-            this.solarSystemPlanets.forEach((planet) => {
-                planet.rotate();
+            this.spaceObjects.forEach((spaceObject) => {
+                spaceObject.rotate();
             });
             this.sun.rotate();
         } else if (!this.isTimeStopped && this.timeIsInverted) {
-            this.solarSystemPlanets.forEach((planet) => {
-                planet.rotate(true);
+            this.spaceObjects.forEach((spaceObject) => {
+                spaceObject.rotate(true);
             });
             this.sun.rotate(true);
         }
@@ -457,7 +460,7 @@ export class SolarSystem {
             });
         }
 
-        if (this.isSatelliteRouteCreating && !this.isTimeStopped && !this.areAlignedPlanets()) {
+        if (this.isSatelliteRouteCreating && !this.isTimeStopped && !this.areAlignedPlanets) {
             this.satellites.forEach((satellite) => {
                 satellite.tracePoint();
             });

@@ -139,7 +139,7 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 5.5, 
+            "x" : 6.5, 
             "y" : 4.9
         },
         "scaleCoords": {
@@ -165,7 +165,7 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 7, 
+            "x" : 9, 
             "y" : 6.5
         },
         "scaleCoords": {
@@ -205,7 +205,7 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 9, 
+            "x" : 11, 
             "y" : 8.3
         },
         "scaleCoords": {
@@ -231,7 +231,7 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 10.5,
+            "x" : 13.5,
             "y" : 9.8
         },
         "scaleCoords": {
@@ -257,7 +257,7 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 12,
+            "x" : 14.5,
             "y" : 11.3
         },
         "scaleCoords": {

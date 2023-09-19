@@ -39,6 +39,9 @@ export class SpaceObject {
         z: null
     }
     speedCoefficient;
+    baseSpeed = 0.0001;
+    initialBaseSpeed = this.baseSpeed;
+    speedMultiplier = 1;
 
     solarSystem;
 
@@ -47,12 +50,6 @@ export class SpaceObject {
     // Modeles 
     ball = new THREE.SphereGeometry(1, 32, 32);
     textureLoader = new THREE.TextureLoader();
-
-    
-/*     // Uniquement pour les planetes
-    orbitPath;
-    // Uniquement pour les satellites
-    points; */
 
     // Fonctionnalités annexe
     #hostPlanet;
@@ -104,16 +101,26 @@ export class SpaceObject {
         this.material.receiveShadow = true;
         this.material.castShadow = true;
 
-        this.solarSystem.scene.add(this.#mesh);
-
         if (!this.isSun()) {
             this.#hostPlanet = hostPlanet;
             this.defineLinkWithHostPlanet();
             if (this.isSatellite()) {
-                this.solarSystem.scene.remove(this.#mesh);
                 this.#hostPlanet.addSatellite(this);
+            } else {
+                this.solarSystem.scene.add(this.#mesh);
             }
+        } else {
+            this.solarSystem.scene.add(this.#mesh);
         }
+    }
+
+    setBaseSpeed(number) {
+        console.log(number);
+        this.baseSpeed = number;
+    }
+
+    setInitialBaseSpeed() {
+        this.baseSpeed = this.initialBaseSpeed;
     }
 
     defineLinkWithHostPlanet() {
@@ -168,12 +175,11 @@ export class SpaceObject {
         }
     }
 
-    changePosition(teta, baseSpeed) {
-        baseSpeed = this.speedCoefficient * baseSpeed;
-        if (this.isSatellite()) baseSpeed *= this.#hostPlanet.speedCoefficient;
+    changePosition(teta) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
-        this.#mesh.position.x = (this.moveCoord.x * Math.cos(teta * baseSpeed)).toFixed(this.around);
-        this.#mesh.position.y = (this.moveCoord.y * Math.sin(teta * baseSpeed)).toFixed(this.around);
+        let speed = this.speedCoefficient * this.baseSpeed * this.speedMultiplier;
+        this.#mesh.position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around);
+        this.#mesh.position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
     }
 
     rotate(invert = false) {
