@@ -114,6 +114,8 @@ export class Satellite extends SpaceObject {
 
         // Mettre la variable this.points
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
+        // Empeche la ligne de disparaitre si la camera est trop proche
+        geometry.computeBoundingSphere();
     }
 
     removeCurrentPoint() {

@@ -400,6 +400,7 @@ export class SolarSystem {
     }
 
     render() {
+        // On demande à la classe TWEEN de mettre à jour les animations en cours
         this.#renderAnimation();
     }
 

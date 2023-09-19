@@ -36,6 +36,8 @@ export class Planet extends SpaceObject {
             let planetPosition = this.getWorldCoords();
             this.linkToPrevious.geometry.setFromPoints([this.#previousPlanet.getMesh().position, planetPosition]);
         }
+        // Empeche la ligne de disparaitre si la camera est trop proche
+        this.linkToPrevious.geometry.computeBoundingSphere();
     }
 
     showLinkWithPreviousPlanet() {

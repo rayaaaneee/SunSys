@@ -134,6 +134,8 @@ export class SpaceObject {
     updateLinkWithHostPlanet() {
         let planetPosition = this.getWorldCoords();
         this.linkToHost.geometry.setFromPoints([this.#hostPlanet.getMesh().position, planetPosition]);
+        // Empeche la ligne de disparaitre si la camera est trop proche
+        this.linkToHost.geometry.computeBoundingSphere();
     }
 
     showLinkWithHostPlanet() {
@@ -167,9 +169,11 @@ export class SpaceObject {
     }
 
     changePosition(teta, baseSpeed) {
+        baseSpeed = this.speedCoefficient * baseSpeed;
+        if (this.isSatellite()) baseSpeed *= this.#hostPlanet.speedCoefficient;
         // On diminue le nombre de décimales pour éviter les problèmes de précision
-        this.#mesh.position.x = (this.moveCoord.x * Math.cos(teta * this.speedCoefficient * baseSpeed)).toFixed(this.around);
-        this.#mesh.position.y = (this.moveCoord.y * Math.sin(teta * this.speedCoefficient * baseSpeed)).toFixed(this.around);
+        this.#mesh.position.x = (this.moveCoord.x * Math.cos(teta * baseSpeed)).toFixed(this.around);
+        this.#mesh.position.y = (this.moveCoord.y * Math.sin(teta * baseSpeed)).toFixed(this.around);
     }
 
     rotate(invert = false) {
