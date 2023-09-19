@@ -1,4 +1,4 @@
-import { SolarSystem } from './solarsystem';
+import { SolarSystem } from './objects/SolarSystem';
 
 var sunSys = new SolarSystem();
 

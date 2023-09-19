@@ -2,12 +2,13 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import TWEEN from '@tweenjs/tween.js';
 import Stats from 'stats.js'
-import { Planet } from './planet';
+import { Planet } from './Planet';
+import { Satellite } from './Satellite';
 
 // JSON des propriétés des planètes
-import planetJson from "./asset/data/planet.json";
+import planetJson from "../asset/data/planet.json";
 // JSON des propriétés des satellites
-import satelliteJson from "./asset/data/satellite.json";
+import satelliteJson from "../asset/data/satellite.json";
 
 export class SolarSystem {
 
@@ -278,46 +279,73 @@ export class SolarSystem {
         });
     }
 
-    #createPlanet(planet) {
+    #createSpaceObjects(spaceObject) {
+
+        let lowerCasePlanetName = spaceObject.name.toLowerCase();
+
         let initCoords = [
-            planet.initCoords.x, 
-            planet.initCoords.y, 
-            planet.initCoords.z
+            spaceObject.initCoords.x, 
+            spaceObject.initCoords.y, 
+            spaceObject.initCoords.z
         ];
         let moveCoords = [
-            planet.moveCoords.x, 
-            planet.moveCoords.y, 
-            planet.moveCoords.z
+            spaceObject.moveCoords.x, 
+            spaceObject.moveCoords.y, 
+            spaceObject.moveCoords.z
         ];
         let scaleCoords = [
-            planet.scaleCoords.x, 
-            planet.scaleCoords.y, 
-            planet.scaleCoords.z
+            spaceObject.scaleCoords.x, 
+            spaceObject.scaleCoords.y, 
+            spaceObject.scaleCoords.z
         ];
         let rotationCoords = [
-            planet.rotationCoords.x, 
-            planet.rotationCoords.y, 
-            planet.rotationCoords.z
+            spaceObject.rotationCoords.x, 
+            spaceObject.rotationCoords.y, 
+            spaceObject.rotationCoords.z
         ];
-        let planetTmp = new Planet(
-            this,
-            planet.name,
-            planet.texture,
-            initCoords,
-            moveCoords,
-            scaleCoords,
-            rotationCoords,
-            planet.speedCoef,
-            // Si la planète possède une planète précédente, on lui passe l'objet de la planète précédente, sinon on ne lui passe rien
-            planet.previousPlanet ? this[planet.previousPlanet.toLowerCase()] : null
-        );
 
-        let lowerCasePlanetName = planet.name.toLowerCase();
+        let spaceObjectTmp;
+        // Si c'est une planète ou le soleil
+        if (spaceObject.hostPlanet === "Sun" || !spaceObject.hostPlanet) {
+            spaceObjectTmp = new Planet(
+                this,
+                spaceObject.name,
+                spaceObject.texture,
+                initCoords,
+                moveCoords,
+                scaleCoords,
+                rotationCoords,
+                spaceObject.speedCoef,
+                // Si la planète possède une planète précédente, on lui passe l'objet de la planète précédente, sinon on ne lui passe rien
+                spaceObject.previousPlanet ? this[spaceObject.previousPlanet.toLowerCase()] : null,
+                spaceObject.hostPlanet ? this[spaceObject.hostPlanet.toLowerCase()] : null
+            );
+            // On crée dynamiquement la propriété de l'objet courant
+            this.setProperty(lowerCasePlanetName, spaceObjectTmp);
+            if (!spaceObjectTmp.isSun()) {
+                this.planets.push(this[lowerCasePlanetName]);
+            }
+        } else {
+            spaceObjectTmp = new Satellite(
+                this,
+                spaceObject.name,
+                spaceObject.texture,
+                initCoords,
+                moveCoords,
+                scaleCoords,
+                rotationCoords,
+                spaceObject.speedCoef,
+                this[spaceObject.hostPlanet.toLowerCase()]
+            );
+            this.setProperty(lowerCasePlanetName, spaceObjectTmp);
+            this.satellites.push(this[lowerCasePlanetName])
+        }
 
-        if (planet.ring) {
-            let ring = planet.ring;
+        // Uniquement Saturne
+        if (spaceObject.ring) {
+            let ring = spaceObject.ring;
             let rotationCoords = [ring.rotationCoords.x, ring.rotationCoords.y, ring.rotationCoords.z];
-            planetTmp.addRing(
+            spaceObjectTmp.addRing(
                 ring.innerRadius, 
                 ring.outerRadius, 
                 ring.thetaSegments, 
@@ -329,28 +357,17 @@ export class SolarSystem {
             );
         }
 
-        if (planet.emissiveMaterial) {
-            let emissiveMaterial = planet.emissiveMaterial;
-            planetTmp.setMaterial(
+        // Uniquement le soleil
+        if (spaceObject.emissiveMaterial) {
+            let emissiveMaterial = spaceObject.emissiveMaterial;
+            spaceObjectTmp.setMaterial(
                 new THREE.MeshStandardMaterial( {
-                    emissiveMap: planetTmp.texture,
+                    emissiveMap: spaceObjectTmp.texture,
                     emissive:  parseInt(emissiveMaterial.color, 16),
                 } )
             );
         }
 
-        // On crée dynamiquement la propriété de l'objet courant
-        this.setProperty(lowerCasePlanetName, planetTmp);
-
-        if (planet.hostPlanet) {
-            planetTmp.setHostPlanet(this[planet.hostPlanet.toLowerCase()]);
-        }
-
-        // Seul le soleil n'a pas de planètes hôtes, on l'enlève donc
-        if (planet.hostPlanet) {
-            if (planet.hostPlanet === "Sun") this.planets.push(this[lowerCasePlanetName]);
-            else this.satellites.push(this[lowerCasePlanetName]);
-        }
     }
 
     setProperty(propertyName, propertyValue) {
@@ -360,12 +377,12 @@ export class SolarSystem {
     initPlanets() {
         // Planets
         planetJson.forEach((planet) => {
-            this.#createPlanet(planet);
+            this.#createSpaceObjects(planet);
         });
 
         // Satellites
         satelliteJson.forEach((satellite) => {
-            this.#createPlanet(satellite);
+            this.#createSpaceObjects(satellite);
         });
 
         this.solarSystemPlanets = [...this.planets, ...this.satellites];
