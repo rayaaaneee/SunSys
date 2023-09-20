@@ -8,6 +8,9 @@ export class Planet extends SpaceObject {
 
     #orbitPath;
 
+    #baseSpeed = 0.0001;
+    #initialBaseSpeed = this.#baseSpeed;
+
     constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, previousPlanet, hostPlanet) {
         super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
 
@@ -55,7 +58,7 @@ export class Planet extends SpaceObject {
 
     changePosition(teta) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
-        let speed = this.speedCoefficient * this.baseSpeed * this.speedMultiplier;
+        let speed = this.speedCoefficient * this.#baseSpeed;
         this.getMesh().position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around);
         this.getMesh().position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
     }
@@ -94,7 +97,15 @@ export class Planet extends SpaceObject {
         return this.#satellites;
     }
 
+    setBaseSpeed(number) {
+        this.#baseSpeed = number;
+    }
+
     isSatellite() {
         return false;
+    }
+
+    setInitialBaseSpeed() {
+        this.#baseSpeed = this.#initialBaseSpeed;
     }
 }

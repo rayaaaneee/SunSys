@@ -338,6 +338,7 @@ export class SolarSystem {
                 scaleCoords,
                 rotationCoords,
                 spaceObject.speedCoef,
+                spaceObject.orbitColor,
                 this[spaceObject.hostPlanet.toLowerCase()]
             );
             this.setProperty(lowerCasePlanetName, spaceObjectTmp);
@@ -395,7 +396,7 @@ export class SolarSystem {
     }
 
     #incrementTicks() {
-        this.ticks += 10;
+        this.ticks += 2;
     }
 
     #decrementTicks() {
@@ -403,11 +404,6 @@ export class SolarSystem {
     }
 
     render() {
-        // On demande à la classe TWEEN de mettre à jour les animations en cours
-        this.#renderAnimation();
-    }
-
-    #renderAnimation() {
         // On associe la méthode render de la classe associé à l'objet courant à l'animation, la fonction sera appelée à chaque frame d'animation
         this.animationFrameRequestId = requestAnimationFrame( this.render.bind(this) );
 

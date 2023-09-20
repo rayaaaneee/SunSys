@@ -8,15 +8,20 @@ export class Satellite extends SpaceObject {
 
     #points;
 
-    constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet) {
+    #baseSpeed = 0.001;
+    #initialBaseSpeed = this.#baseSpeed;
+    #orbitColor;
+
+    constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
         super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
 
+        this.#orbitColor = parseInt(orbitColor, 16);
         this.defineInitialOrbitTracePoints();
     }
 
     defineInitialOrbitTracePoints() {
         const material = new THREE.PointsMaterial({
-          color: 0xffff00, // Couleur blanche pour représenter la Lune
+          color: this.#orbitColor, // Couleur blanche pour représenter la Lune
           size: 0.01, // Taille des points
         });
         this.#points = new THREE.Points(undefined, material);
@@ -67,6 +72,14 @@ export class Satellite extends SpaceObject {
                 }
             }
         }
+    }
+
+    setBaseSpeed(number) {
+        this.#baseSpeed = number;
+    }
+
+    setInitialBaseSpeed() {
+        this.#baseSpeed = this.#initialBaseSpeed;
     }
 
     // Tracage de points qui prend en compte les inversions du temps
@@ -120,9 +133,12 @@ export class Satellite extends SpaceObject {
 
     changePosition(teta) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
-        let speed = this.speedCoefficient * this.baseSpeed * this.speedMultiplier;
-        this.getMesh().position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around); 
-        this.getMesh().position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
+        let speed = this.speedCoefficient * this.#baseSpeed;
+
+        // Récupérer l'angle de la planete hote pour le soustraire à teta
+        let angleHost = this.getHostPlanet().getMesh().rotation.z;
+        this.getMesh().position.x = (this.moveCoord.x * (Math.cos((teta * speed) - angleHost))).toFixed(this.around); 
+        this.getMesh().position.y = (this.moveCoord.y * (Math.sin((teta * speed) - angleHost))).toFixed(this.around);
     }
 
     removeCurrentPoint() {

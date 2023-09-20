@@ -39,9 +39,6 @@ export class SpaceObject {
         z: null
     }
     speedCoefficient;
-    baseSpeed = 0.0001;
-    initialBaseSpeed = this.baseSpeed;
-    speedMultiplier = 1;
 
     solarSystem;
 
@@ -112,15 +109,6 @@ export class SpaceObject {
         } else {
             this.solarSystem.scene.add(this.#mesh);
         }
-    }
-
-    setBaseSpeed(number) {
-        console.log(number);
-        this.baseSpeed = number;
-    }
-
-    setInitialBaseSpeed() {
-        this.baseSpeed = this.initialBaseSpeed;
     }
 
     defineLinkWithHostPlanet() {
