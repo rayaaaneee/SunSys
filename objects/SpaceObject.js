@@ -175,13 +175,6 @@ export class SpaceObject {
         }
     }
 
-    changePosition(teta) {
-        // On diminue le nombre de décimales pour éviter les problèmes de précision
-        let speed = this.speedCoefficient * this.baseSpeed * this.speedMultiplier;
-        this.#mesh.position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around);
-        this.#mesh.position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
-    }
-
     rotate(invert = false) {
         if (invert) {
             this.#mesh.rotation.x -= this.rotateCoord.x;

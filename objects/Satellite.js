@@ -118,6 +118,13 @@ export class Satellite extends SpaceObject {
         geometry.computeBoundingSphere();
     }
 
+    changePosition(teta) {
+        // On diminue le nombre de décimales pour éviter les problèmes de précision
+        let speed = this.speedCoefficient * this.baseSpeed * this.speedMultiplier;
+        this.getMesh().position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around); 
+        this.getMesh().position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
+    }
+
     removeCurrentPoint() {
         const geometry = this.#points.geometry;
         if ( geometry.attributes.position.array.length == 0 ) {

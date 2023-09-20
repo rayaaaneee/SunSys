@@ -15,3 +15,6 @@
 ## Donner une largeur à l'anneau de saturne avec extrudeGeometry
 
 // Tracer l'orbite des satellites
+
+// La plenete tourne en même temps que les satellites, il faut donc
+// Séparer les satellites de la Terre (dans la scène) pour regler le problème

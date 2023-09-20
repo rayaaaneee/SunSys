@@ -395,7 +395,7 @@ export class SolarSystem {
     }
 
     #incrementTicks() {
-        this.ticks += 2;
+        this.ticks += 10;
     }
 
     #decrementTicks() {
