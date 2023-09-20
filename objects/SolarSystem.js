@@ -404,6 +404,8 @@ export class SolarSystem {
     }
 
     render() {
+
+        console.log(this.ticks);
         // On associe la méthode render de la classe associé à l'objet courant à l'animation, la fonction sera appelée à chaque frame d'animation
         this.animationFrameRequestId = requestAnimationFrame( this.render.bind(this) );
 
@@ -426,14 +428,14 @@ export class SolarSystem {
 
         if ( !this.isTimeStopped && !this.timeIsInverted) {
             this.spaceObjects.forEach((spaceObject) => {
-                spaceObject.rotate();
+                spaceObject.rotate(teta);
             });
-            this.sun.rotate();
+            this.sun.rotate(teta);
         } else if (!this.isTimeStopped && this.timeIsInverted) {
             this.spaceObjects.forEach((spaceObject) => {
-                spaceObject.rotate(true);
+                spaceObject.rotate(teta);
             });
-            this.sun.rotate(true);
+            this.sun.rotate(teta);
         }
 
         // Update les liens des planètes à leur planète hôte

@@ -3,7 +3,7 @@ import { SpaceObject } from "./SpaceObject";
 
 export class Satellite extends SpaceObject {
 
-    #timeIsInvertedCoords = null;
+    #timeIsInvertedTicks = null;
     #hasOverflowPath = false;
 
     #points;
@@ -31,22 +31,20 @@ export class Satellite extends SpaceObject {
 
     updateActionToTracedPath() {
         if (this.#hasOverflowPath) {
-            this.timeIsInvertedCoords = null;
+            this.#timeIsInvertedTicks = null;
             this.#hasOverflowPath = false;
         } else {
             this.#hasOverflowPath = true;
-            this.setTimeIsInvertedCoords();
+            this.setTimeIsInvertedTicks();
         }
     }
 
-    setTimeIsInvertedCoords() {
-        // Récupérer le premier point tracé par la planète
-        let position = this.#points.geometry.attributes.position.array;
-        this.timeIsInvertedCoords = {
-            x: position[0].toFixed(this.around),
-            y: position[1].toFixed(this.around),
-            z: position[2].toFixed(this.around)
-        }
+    setTimeIsInvertedTicks() {
+        // On recupere le nombre de points stockés dans la variable this.points
+        const nbPoints = this.#points.geometry.attributes.position.array.length / 3;
+        // Pour chaque point tracé, deux ticks de différence;
+        const differenceTicks = nbPoints * 2;
+        this.#timeIsInvertedTicks = this.solarSystem.ticks - differenceTicks;
     }
 
     traceOrbitPath() {
@@ -59,7 +57,7 @@ export class Satellite extends SpaceObject {
 
     removeTracedOrbitPath() {
         this.#hasOverflowPath = false;
-        this.timeIsInvertedCoords = null;
+        this.#timeIsInvertedTicks = null;
         this.#points.geometry.setFromPoints([]);
         this.solarSystem.scene.remove(this.#points);
     }
@@ -85,33 +83,33 @@ export class Satellite extends SpaceObject {
     // Tracage de points qui prend en compte les inversions du temps
     tracePoint() {
         if (!this.solarSystem.timeIsInverted) {
-            if (this.#timeIsInvertedCoords === null) {
-                // Le temps n'est pas inversé mais il n'y a rien a effacer, on pose des points
+            if (this.#timeIsInvertedTicks === null) {
+                // if (this.name === "Moon") console.log("Le temps n'est pas inversé mais il n'y a rien a effacer, on pose des points");
                 this.setNewPoint();
             } else {
-                if (this.compareCoords(this.#timeIsInvertedCoords, this.getWorldCoords())) {
-                    // Le temps n'est pas inversé et le surplus de chemin est effacé
+                if (this.#timeIsInvertedTicks === this.solarSystem.ticks) {
+                    // if (this.name === "Moon") console.log("Le temps n'est pas inversé et le surplus de chemin est effacé");
                     this.#hasOverflowPath = false;
-                    this.timeIsInvertedCoords = null;
+                    this.#timeIsInvertedTicks = null;
                 } else {
-                    // Le temps n'est pas inversé et il faut effacer le chemin jusqu'a la coordonnée du premier point
+                    // if (this.name === "Moon") console.log("Le temps n'est pas inversé et il faut effacer le chemin jusqu'a la coordonnée du premier point");
                     this.removeCurrentPoint();
                 }
             }
         } else {
-            if (this.#timeIsInvertedCoords === null) {
-                // Le temps est inversé mais il n'y a rien a effacer, on pose des points
+            if (this.#timeIsInvertedTicks === null) {
+                // if (this.name === "Moon") console.log("Le temps est inversé mais il n'y a rien a effacer, on pose des points");
                 this.setNewPoint();
             } else {
-                if (this.compareCoords(this.#timeIsInvertedCoords, this.getWorldCoords())) {
-                    // Le temps est inversé et le surplus de chemin a été entièrement retiré
+                if (this.#timeIsInvertedTicks === this.solarSystem.ticks) {
+                    // if (this.name === "Moon") console.log("Le temps est inversé et le surplus de chemin a été entièrement retiré");
                     this.#hasOverflowPath = false;
                 } else {
                     if (this.#hasOverflowPath) {
-                        // Le temps est inversé et il faut effacer le chemin jusqu'a la coordonnée du premier point
+                        // if (this.name === "Moon") console.log("Le temps est inversé et il faut effacer le chemin jusqu'a la coordonnée du premier point");
                         this.removeCurrentPoint();
                     } else {
-                        // Le temps est inversé et il n'y a pas de surplus de chemin
+                        // if (this.name === "Moon") console.log("Le temps est inversé et il n'y a pas de surplus de chemin");
                         this.setNewPoint();
                     }
                 }

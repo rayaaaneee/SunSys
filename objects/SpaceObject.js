@@ -163,16 +163,10 @@ export class SpaceObject {
         }
     }
 
-    rotate(invert = false) {
-        if (invert) {
-            this.#mesh.rotation.x -= this.rotateCoord.x;
-            this.#mesh.rotation.y -= this.rotateCoord.y;
-            this.#mesh.rotation.z -= this.rotateCoord.z;
-        } else {
-            this.#mesh.rotation.x += this.rotateCoord.x;
-            this.#mesh.rotation.y += this.rotateCoord.y;
-            this.#mesh.rotation.z += this.rotateCoord.z;
-        }
+    rotate(ticks) {
+        this.#mesh.rotation.x = (this.rotateCoord.x * ticks).toFixed(this.around);
+        this.#mesh.rotation.y = (this.rotateCoord.y * ticks).toFixed(this.around);
+        this.#mesh.rotation.z = (this.rotateCoord.z * ticks).toFixed(this.around);
     }
 
     addRing(innerRadius, outerRadius, thetaSegments, phiSegments, texture, isTransparent, opacity, rotationCoords, position = [0, 0, 0]) {
