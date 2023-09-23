@@ -67,6 +67,10 @@ export class Planet extends SpaceObject {
         return this.#satellites;
     }
 
+    setOrbitColor() {
+        this.linkToHost.material.color.setHex(0xffffff);
+    }
+
     defineOrbit() {
         let curve = new THREE.EllipseCurve(0,  0, this.moveCoord.x , 
         this.moveCoord.y, 0,  2 * Math.PI, false, 0);

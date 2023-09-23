@@ -118,12 +118,10 @@ export class SpaceObject {
 
         lineGeometry.verticesNeedUpdate = true;
 
-        // jaune
-        let color = 0xffffff;
-        // sinon 
-        if (this.isSatellite()) color = 0xffff00;
-        const lineMaterial = new THREE.LineBasicMaterial({ color: color, linewidth: 1 });
+        const lineMaterial = new THREE.LineBasicMaterial({ linewidth: 1 });
         this.linkToHost = new THREE.Line(lineGeometry, lineMaterial);
+
+        this.setOrbitColor();
     }
 
     updateLinkWithHostPlanet() {

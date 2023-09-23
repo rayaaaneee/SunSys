@@ -10,18 +10,18 @@ export class Satellite extends SpaceObject {
 
     #baseSpeed = 0.001;
     #initialBaseSpeed = this.#baseSpeed;
-    #orbitColor;
+    orbitColor;
 
     constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
         super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
 
-        this.#orbitColor = parseInt(orbitColor, 16);
+        this.orbitColor = parseInt(orbitColor, 16);
         this.defineInitialOrbitTracePoints();
     }
 
     defineInitialOrbitTracePoints() {
         const material = new THREE.PointsMaterial({
-          color: this.#orbitColor, // Couleur blanche pour représenter la Lune
+          color: this.orbitColor, // Couleur blanche pour représenter la Lune
           size: 0.01, // Taille des points
         });
         this.#points = new THREE.Points(undefined, material);
@@ -30,7 +30,7 @@ export class Satellite extends SpaceObject {
     }
 
     updateActionToTracedPath() {
-        this.#hasOverflowPath = !this.#hasOverflowPath
+        this.#hasOverflowPath = !this.#hasOverflowPath;
     }
 
     setTimeIsInvertedTicks(nullable = false) {
@@ -124,6 +124,13 @@ export class Satellite extends SpaceObject {
             // Mettre la variable this.points
             geometry.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
         }
+    }
+
+    setOrbitColor() {
+        // On laisse le temps à la classe mère de finir son initialisation ainsi qu'à la classe de définir la couleur
+        setTimeout(() => {
+            this.linkToHost.material.color.setHex(this.orbitColor);
+        }, 0);
     }
 
     isSatellite() {
