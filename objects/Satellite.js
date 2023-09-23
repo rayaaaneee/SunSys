@@ -82,17 +82,10 @@ export class Satellite extends SpaceObject {
     tracePoint() {
         if (this.#hasOverflowPath) {
             if (this.solarSystem.ticks === this.#startTracingOrbitTick) {
-                if (this.name === "Moon") console.log("On a atteint le nombre de ticks pour tracer le chemin", this.#startTracingOrbitTick);
                 this.removeCurrentPoint();
                 this.#hasOverflowPath = false;
-            } else {
-                if (this.name === "Moon") console.log("On supprime le chemin jusqu'à la coordonnée du premier point", this.#startTracingOrbitTick);
-                this.removeCurrentPoint();
-            }
-        } else {
-            if (this.name === "Moon") console.log("On ajoute un point", this.#startTracingOrbitTick);
-            this.setNewPoint();
-        }
+            } else this.removeCurrentPoint();
+        } else this.setNewPoint();
     }
 
     setNewPoint(){
