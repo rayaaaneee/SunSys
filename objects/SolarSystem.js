@@ -58,6 +58,8 @@ export class SolarSystem {
     isPreviousPlanetLinkVisible = false;
     areAlignedPlanets = false;
 
+    ticksRenderer = document.getElementById("ticks");
+
     constructor() {
 
         // On initialise la scène
@@ -257,6 +259,7 @@ export class SolarSystem {
     showOrbitPathSat() {
         this.isSatelliteRouteCreating = true;
         this.satellites.forEach((satellite) => {
+            satellite.setTimeIsInvertedTicks();
             satellite.traceOrbitPath();
         });
     }
@@ -264,6 +267,8 @@ export class SolarSystem {
     hideOrbitPathSat() {
         this.isSatelliteRouteCreating = false;
         this.satellites.forEach((satellite) => {
+            // On met la valeur de timeIsInvertedTicks à null pour que la fonction tracePoint() ne prenne pas en compte les inversions du temps
+            satellite.setTimeIsInvertedTicks(true);
             satellite.removeTracedOrbitPath();
         });
     }
@@ -404,8 +409,6 @@ export class SolarSystem {
     }
 
     render() {
-
-        console.log(this.ticks);
         // On associe la méthode render de la classe associé à l'objet courant à l'animation, la fonction sera appelée à chaque frame d'animation
         this.animationFrameRequestId = requestAnimationFrame( this.render.bind(this) );
 
@@ -416,6 +419,8 @@ export class SolarSystem {
                 this.#incrementTicks();
             }
         }
+
+        this.ticksRenderer.innerHTML = this.ticks;
 
         var teta = this.ticks;
         if ( this.isTimeStopped ) {
