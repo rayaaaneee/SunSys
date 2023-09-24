@@ -14,22 +14,22 @@
       <img id="hiddenLogo" src="./asset/img/control-panel.png" alt="Panneau de controle" title="Panneau de configuration"/>
       <p class="title-panel">Panneau de configuration</p>
       <div class="parameters">
-        <!-- Ok -->
+        <div class="panel-opt">
+          <p>• Ticks :</p>
+          <p id="ticks"></p>
+        </div>
         <div class="panel-opt">
           <p class="title-opt">• Eclairer entièrement</p>
           <input id="bigLight" type="checkbox"/>
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Afficher les orbites des planètes</p>
           <input type="checkbox" id="planetLinks" />
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Afficher les orbites des satellites</p>
           <input type="checkbox" id="satelliteLinks" />
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Trajectoires des orbites des planètes</p>
           <input type="checkbox" checked id="orbitPath" />
@@ -42,12 +42,10 @@
           <p class="title-opt">• Relier les planètes</p>
           <input type="checkbox" id="linkPlanets" />
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Aligner les planètes</p>
           <input type="checkbox" id="alignPlanets" />
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Cacher les satellites</p>
           <input type="checkbox" id="hideSatellites" />
@@ -56,28 +54,30 @@
           <p class="title-opt">• Afficher la ceinture d'asteroides</p>
           <input type="checkbox" />
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Inverser l'écoulement du temps</p>
           <input type="checkbox" id="invertTime"/>
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Afficher les FPS</p>
           <input type="checkbox" id="showFps"/>
         </div>
         <div class="panel-opt">
           <p class="title-opt">• Vitesse</p>
-          <input id="changeSpeedRange" type="range" />
+          <div class="range-input-container">
+            <p>x1</p>
+            <div class="range-container">
+              <div class="range-value">
+                <p id="speedValue">x1</p>
+              </div>
+              <input id="changeSpeedRange" type="range" min="1" max="10" step="1" value="1" />
+            </div>
+            <p>x10</p>
+          </div>
         </div>
-        <!-- Ok -->
         <div class="panel-opt">
           <p class="title-opt">• Arrêter le temps</p>
           <button id="stopTime"></button>
-        </div>
-        <div class="panel-opt">
-          <p>• Ticks :</p>
-          <p id="ticks"></p>
         </div>
       </div>
     </div>

@@ -57,6 +57,7 @@ export class SolarSystem {
     isSatelliteRouteCreating = false;
     isPreviousPlanetLinkVisible = false;
     areAlignedPlanets = false;
+    speedMultiplier = 1;
 
     ticksRenderer = document.getElementById("ticks");
 
@@ -401,11 +402,16 @@ export class SolarSystem {
     }
 
     #incrementTicks() {
-        this.ticks += 2;
+        this.ticks += 2 * this.speedMultiplier;
+        if (this.speedMultiplier > 1) {
+            if (this.isSatelliteRouteCreating) {
+                // On force le tracage de points ici
+            }
+        }
     }
 
     #decrementTicks() {
-        this.ticks -= 2;
+        this.ticks -= 2 * this.speedMultiplier;
     }
 
     render() {
@@ -420,7 +426,7 @@ export class SolarSystem {
             }
         }
 
-        this.ticksRenderer.innerHTML = this.ticks;
+        this.ticksRenderer.textContent = this.ticks;
 
         var teta = this.ticks;
         if ( this.isTimeStopped ) {

@@ -34,14 +34,14 @@ export class Satellite extends SpaceObject {
     }
 
     setTimeIsInvertedTicks(nullable = false) {
-        // On recupere le nombre de points stockés dans la variable this.points
-        const nbPoints = this.#points.geometry.attributes.position.array.length / 3;
-        // Pour chaque point tracé, deux ticks de différence;
-        const differenceTicks = nbPoints * 2;
-        this.#startTracingOrbitTick = this.solarSystem.ticks - differenceTicks;
-
         if (nullable) {
             this.#startTracingOrbitTick = null;
+        } else {
+            // On recupere le nombre de points stockés dans la variable this.points
+            const nbPoints = this.#points.geometry.attributes.position.array.length / 3;
+            // Pour chaque point tracé, deux ticks de différence;
+            const differenceTicks = nbPoints * 2;
+            this.#startTracingOrbitTick = this.solarSystem.ticks - differenceTicks;
         }
     }
 
@@ -121,8 +121,9 @@ export class Satellite extends SpaceObject {
 
     setOrbitColor() {
         // On laisse le temps à la classe mère de finir son initialisation ainsi qu'à la classe de définir la couleur
-        setTimeout(() => {
+        let timeoutId = setTimeout(() => {
             this.linkToHost.material.color.setHex(this.orbitColor);
+            clearTimeout(timeoutId);
         }, 0);
     }
 

@@ -35,11 +35,28 @@ const light = (checkbox) => {
 }
 
 const changeSpeedRange = document.getElementById('changeSpeedRange');
-changeSpeedRange.addEventListener('change', (e) => {
+const rangeValueContainer = document.querySelector('.range-value');
+const speedValue = document.getElementById('speedValue');
+changeSpeedRange.addEventListener('input', (e) => {
     speed(e.target);
+    rangeValueContainer.classList.add('show');
+});
+document.addEventListener('mouseup', (e) => {
+    if (e.target === changeSpeedRange) {
+        // Le bouton de la souris a été relâché sur le range
+        rangeValueContainer.classList.remove('show');
+    }
 });
 const speed = (range) => {
-    /* sunSys.changeSpeed(range.value); */
+    let value = range.value;
+    speedValue.textContent = "x" + value;
+    // La valeur de x va de 5% à 90%, le range demarre de 1 et finit à 10
+    let scale = 90 - 5;
+    let gap = scale / 9;
+    let x = 5 + (gap * (value - 1));
+    rangeValueContainer.style.left = x + "%";
+
+    sunSys.speedMultiplier = value;
 }
 
 const stopTimeButton = document.getElementById('stopTime');
