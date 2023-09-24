@@ -78,36 +78,48 @@ export class Satellite extends SpaceObject {
         this.#baseSpeed = this.#initialBaseSpeed;
     }
 
-    // Tracage de points qui prend en compte les inversions du temps
-    tracePoint() {
+    // Tracage de points qui prend en compte les inversions du temps, on peut forcer le tracage de point pour un tick définit, sinon pour le tick courant
+    tracePoint(tick = null) {
         if (this.#hasOverflowPath) {
             if (this.solarSystem.ticks === this.#startTracingOrbitTick) {
                 this.removeCurrentPoint();
                 this.#hasOverflowPath = false;
             } else this.removeCurrentPoint();
-        } else this.setNewPoint();
+        } else this.setNewPoint(tick);
     }
 
-    setNewPoint(){
-        let currentPoint = this.getWorldCoords();
+    setNewPoint(tick = null){
+        let currentPoint;
+        if (tick) {
+            let currentPosition = this.getPosition(tick);
+            let hostPlanetCurrentPosition = this.getHostPlanet().getPosition(tick);
+            currentPoint = this.getWorldCoords(currentPosition, hostPlanetCurrentPosition);
+        } else {
+            currentPoint = this.getWorldCoords();
+        }
 
         const geometry = this.#points.geometry;
         const newPositions = new Float32Array([...geometry.attributes.position.array, currentPoint.x, currentPoint.y, currentPoint.z]);
 
         // Mettre la variable this.points
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
+
         // Empeche la ligne de disparaitre si la camera est trop proche
         geometry.computeBoundingSphere();
     }
 
-    changePosition(teta) {
+    // Récupérer la position exacte pour un 
+    getPosition(tick) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
         let speed = this.speedCoefficient * this.#baseSpeed;
 
         // Récupérer l'angle de la planete hote pour le soustraire à teta
-        let angleHost = this.getHostPlanet().getMesh().rotation.z;
-        this.getMesh().position.x = (this.moveCoord.x * (Math.cos((teta * speed) - angleHost))).toFixed(this.around); 
-        this.getMesh().position.y = (this.moveCoord.y * (Math.sin((teta * speed) - angleHost))).toFixed(this.around);
+        let angleHost = this.getHostPlanet().getRotation(tick).z;
+
+        let x = (this.moveCoord.x * (Math.cos((tick * speed) - angleHost))).toFixed(this.around);
+        let y = (this.moveCoord.y * (Math.sin((tick * speed) - angleHost))).toFixed(this.around);
+
+        return new THREE.Vector3(x, y, 0);
     }
 
     removeCurrentPoint() {

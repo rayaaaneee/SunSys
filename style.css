@@ -202,3 +202,9 @@ input[type="range"]::-webkit-slider-thumb {
 .range-input-container div.range-value #speedValue {
   rotate: 45deg;
 }
+
+.range-input-container .range-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

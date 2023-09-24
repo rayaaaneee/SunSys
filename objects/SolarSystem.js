@@ -171,13 +171,11 @@ export class SolarSystem {
     addAmbientLight() {
         this.scene.add( this.ambientLight );
         this.scene.remove( this.pointLight );
-        this.scene.remove( this.directionalLight );
     }
 
     removeAmbientLight() {
         this.scene.remove( this.ambientLight );
         this.scene.add( this.pointLight );
-        this.scene.add( this.directionalLight );
     }
 
     alignPlanets() {
@@ -403,11 +401,6 @@ export class SolarSystem {
 
     #incrementTicks() {
         this.ticks += 2 * this.speedMultiplier;
-        if (this.speedMultiplier > 1) {
-            if (this.isSatelliteRouteCreating) {
-                // On force le tracage de points ici
-            }
-        }
     }
 
     #decrementTicks() {
@@ -423,6 +416,23 @@ export class SolarSystem {
                 this.#decrementTicks();
             } else {
                 this.#incrementTicks();
+            }
+            if (this.speedMultiplier > 1 && this.isSatelliteRouteCreating) {
+                // On force le tracage de points ici
+                let initialTick = this.ticks - (2 * this.speedMultiplier) + 2;
+                let finalTick = this.ticks - 2;
+                let ticksToPoint = [];
+
+                // On récupère les ticks intérmédiaires pour tracer les points à chacun, étant donné que l'accélération augmente le gap entre chaque tick
+                for (let i = initialTick; i <= finalTick; i += 2) {
+                    ticksToPoint.push(i);
+                }
+
+                ticksToPoint.forEach((tick) => {
+                    this.satellites.forEach((satellite) => {
+                        satellite.tracePoint(tick);
+                    });
+                });
             }
         }
 

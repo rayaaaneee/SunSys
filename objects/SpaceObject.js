@@ -125,7 +125,7 @@ export class SpaceObject {
     }
 
     updateLinkWithHostPlanet() {
-        let planetPosition = this.getWorldCoords();
+        let planetPosition = this.getMesh().position;
         this.linkToHost.geometry.setFromPoints([this.#hostPlanet.getMesh().position, planetPosition]);
         // Empeche la ligne de disparaitre si la camera est trop proche
         this.linkToHost.geometry.computeBoundingSphere();
@@ -148,23 +148,50 @@ export class SpaceObject {
         return this.#mesh;
     }
 
-    getWorldCoords() {
-        if (!this.isSatellite()) {
-            return this.#mesh.position;
+    changePosition(tick) {
+        // On diminue le nombre de décimales pour éviter les problèmes de précision
+        let position = this.getPosition(tick);
+        this.getMesh().position.x = position.x;
+        this.getMesh().position.y = position.y;
+    }
+
+    // Fonction qui retourne les coordonnées globales d'un satellite. Si des coordonnées sont passées, on retourne les coordonnées globales pour ces coordonnées précises, en prenant en compte la position intermédiaire de la planète hôte
+    getWorldCoords(satelliteCoords = null, hostPlanetPosition = null) {
+        let position;
+        if (satelliteCoords) {
+            // On instancie une nouvelle Mesh pour ne pas altérer la planète hote courante, on l'ajoute ensuite à la scene pour pouvoir utiliser la fonction localToWorld
+            let planetMeshClone = this.#hostPlanet.getMesh().clone();
+            planetMeshClone.visible = false;
+            this.solarSystem.scene.add(planetMeshClone);
+
+            // On lui donne les bonnes coordonnées puis on récupère les coordonnées globales
+            planetMeshClone.position.set(hostPlanetPosition.x, hostPlanetPosition.y, hostPlanetPosition.z);
+            position = planetMeshClone.localToWorld(satelliteCoords);
+
+            // On supprime la planète hote clonée de la scène
+            this.solarSystem.scene.remove(planetMeshClone);
         } else {
-            let position = this.#hostPlanet.getMesh().localToWorld(this.#mesh.position.clone());
-            return {
-                x: position.x.toFixed(this.around),
-                y: position.y.toFixed(this.around),
-                z: position.z.toFixed(this.around)
-            }
+            position = this.#hostPlanet.getMesh().localToWorld(this.#mesh.position.clone());
+        }
+
+        return {
+            x: position.x.toFixed(this.around),
+            y: position.y.toFixed(this.around),
+            z: position.z.toFixed(this.around)
         }
     }
 
-    rotate(ticks) {
-        this.#mesh.rotation.x = (this.rotateCoord.x * ticks).toFixed(this.around);
-        this.#mesh.rotation.y = (this.rotateCoord.y * ticks).toFixed(this.around);
-        this.#mesh.rotation.z = (this.rotateCoord.z * ticks).toFixed(this.around);
+    rotate(tick) {
+        let rotation = this.getRotation(tick);
+        this.#mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+    }
+
+    getRotation(tick) {
+        let x = (this.rotateCoord.x * tick).toFixed(this.around);
+        let y = (this.rotateCoord.y * tick).toFixed(this.around);
+        let z = (this.rotateCoord.z * tick).toFixed(this.around);
+
+        return new THREE.Euler(x, y, z);
     }
 
     addRing(innerRadius, outerRadius, thetaSegments, phiSegments, texture, isTransparent, opacity, rotationCoords, position = [0, 0, 0]) {

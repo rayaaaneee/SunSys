@@ -37,9 +37,18 @@ const light = (checkbox) => {
 const changeSpeedRange = document.getElementById('changeSpeedRange');
 const rangeValueContainer = document.querySelector('.range-value');
 const speedValue = document.getElementById('speedValue');
+const rangeMaxValue = parseInt(changeSpeedRange.getAttribute('max'));
+const rangeMaxValueText = document.getElementById('rangeMaxValue');
+rangeMaxValueText.textContent = "x" + rangeMaxValue;
 changeSpeedRange.addEventListener('input', (e) => {
     speed(e.target);
     rangeValueContainer.classList.add('show');
+});
+document.addEventListener('mousedown', (e) => {
+    if (e.target === changeSpeedRange) {
+        // Le bouton de la souris a été enfoncé sur le range
+        rangeValueContainer.classList.add('show');
+    }
 });
 document.addEventListener('mouseup', (e) => {
     if (e.target === changeSpeedRange) {
@@ -49,11 +58,14 @@ document.addEventListener('mouseup', (e) => {
 });
 const speed = (range) => {
     let value = range.value;
+
     speedValue.textContent = "x" + value;
     // La valeur de x va de 5% à 90%, le range demarre de 1 et finit à 10
-    let scale = 90 - 5;
-    let gap = scale / 9;
-    let x = 5 + (gap * (value - 1));
+    let startPos = 5;
+    let endPos = 90;
+    let scale = endPos - startPos;
+    let gap = scale / (parseInt(range.getAttribute('max') - 1));
+    let x = startPos + (gap * (value - 1));
     rangeValueContainer.style.left = x + "%";
 
     sunSys.speedMultiplier = value;

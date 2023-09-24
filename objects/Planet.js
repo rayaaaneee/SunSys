@@ -36,7 +36,7 @@ export class Planet extends SpaceObject {
 
     updateLinkWithPreviousPlanet() {
         if (this.linkToPrevious) {
-            let planetPosition = this.getWorldCoords();
+            let planetPosition = this.getMesh().position;
             this.linkToPrevious.geometry.setFromPoints([this.#previousPlanet.getMesh().position, planetPosition]);
         }
         // Empeche la ligne de disparaitre si la camera est trop proche
@@ -56,11 +56,13 @@ export class Planet extends SpaceObject {
         this.getMesh().add(satellite.getMesh());
     }
 
-    changePosition(teta) {
+    getPosition(tick) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
         let speed = this.speedCoefficient * this.#baseSpeed;
-        this.getMesh().position.x = (this.moveCoord.x * (Math.cos(teta * speed))).toFixed(this.around);
-        this.getMesh().position.y = (this.moveCoord.y * (Math.sin(teta * speed))).toFixed(this.around);
+        let x = (this.moveCoord.x * (Math.cos(tick * speed))).toFixed(this.around);
+        let y = (this.moveCoord.y * (Math.sin(tick * speed))).toFixed(this.around);
+
+        return new THREE.Vector3(x, y, 0);
     }
 
     getSatellites() {
