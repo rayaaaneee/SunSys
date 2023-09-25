@@ -93,7 +93,8 @@ export class Satellite extends SpaceObject {
         if (tick) {
             let currentPosition = this.getPosition(tick);
             let hostPlanetCurrentPosition = this.getHostPlanet().getPosition(tick);
-            currentPoint = this.getWorldCoords(currentPosition, hostPlanetCurrentPosition);
+            let hostPlanetCurrentRotation = this.getHostPlanet().getRotation(tick);
+            currentPoint = this.getWorldCoords(currentPosition, hostPlanetCurrentPosition, hostPlanetCurrentRotation);
         } else {
             currentPoint = this.getWorldCoords();
         }
