@@ -1,27 +1,27 @@
 import * as THREE from 'three';
 import { SpaceObject } from "./SpaceObject";
+import { SolarSystem } from './SolarSystem';
 
 export class Satellite extends SpaceObject {
 
-    #startTracingOrbitTick = null;
     #hasOverflowPath = false;
 
     #points;
 
     #baseSpeed = 0.001;
     #initialBaseSpeed = this.#baseSpeed;
-    orbitColor;
+    #orbitColor;
 
     constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
         super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
 
-        this.orbitColor = parseInt(orbitColor, 16);
+        this.#orbitColor = parseInt(orbitColor, 16);
         this.defineInitialOrbitTracePoints();
     }
 
     defineInitialOrbitTracePoints() {
         const material = new THREE.PointsMaterial({
-          color: this.orbitColor, // Couleur blanche pour représenter la Lune
+          color: this.#orbitColor, // Couleur blanche pour représenter la Lune
           size: 0.01, // Taille des points
         });
         this.#points = new THREE.Points(undefined, material);
@@ -35,13 +35,13 @@ export class Satellite extends SpaceObject {
 
     setTimeIsInvertedTicks(nullable = false) {
         if (nullable) {
-            this.#startTracingOrbitTick = null;
+            this.solarSystem.startTracingOrbitTick = null;
         } else {
             // On recupere le nombre de points stockés dans la variable this.points
             const nbPoints = this.#points.geometry.attributes.position.array.length / 3;
             // Pour chaque point tracé, deux ticks de différence;
             const differenceTicks = nbPoints * 2;
-            this.#startTracingOrbitTick = this.solarSystem.ticks - differenceTicks;
+            this.solarSystem.startTracingOrbitTick = this.solarSystem.ticks - differenceTicks;
         }
     }
 
@@ -55,19 +55,9 @@ export class Satellite extends SpaceObject {
 
     removeTracedOrbitPath() {
         this.#hasOverflowPath = false;
-        this.#startTracingOrbitTick = null;
+        this.solarSystem.startTracingOrbitTick = null;
         this.#points.geometry.setFromPoints([]);
         this.solarSystem.scene.remove(this.#points);
-    }
-
-    compareCoords(coords1, coords2) {
-        if (coords1.x === coords2.x) {
-            if (coords1.y === coords2.y) {
-                if (coords1.z === coords2.z) {
-                    return true;
-                }
-            }
-        }
     }
 
     setBaseSpeed(number) {
@@ -81,11 +71,16 @@ export class Satellite extends SpaceObject {
     // Tracage de points qui prend en compte les inversions du temps, on peut forcer le tracage de point pour un tick définit, sinon pour le tick courant
     tracePoint(tick = null) {
         if (this.#hasOverflowPath) {
-            if (this.solarSystem.ticks === this.#startTracingOrbitTick) {
+            if (this.solarSystem.ticks === this.solarSystem.startTracingOrbitTick) {
+                // if (this.name === "Moon") console.log("On a atteint le tick d'inversion, il n'y a plus rien à effacer");
                 this.removeCurrentPoint();
                 this.#hasOverflowPath = false;
-            } else this.removeCurrentPoint();
-        } else this.setNewPoint(tick);
+            } else {
+                // if (this.name === "Moon") console.log("On a pas atteint le tick d'inversion, on efface des points", this.#startTracingOrbitTick, this.solarSystem.ticks);
+                this.removeCurrentPoint()};
+        } else {
+            // if (this.name === "Moon") console.log("Il n'y a rien a effacer, on pose des points");
+            this.setNewPoint(tick)};
     }
 
     setNewPoint(tick = null){
@@ -142,12 +137,16 @@ export class Satellite extends SpaceObject {
     setOrbitColor() {
         // On laisse le temps à la classe mère de finir son initialisation ainsi qu'à la classe de définir la couleur
         let timeoutId = setTimeout(() => {
-            this.linkToHost.material.color.setHex(this.orbitColor);
+            this.linkToHost.material.color.setHex(this.#orbitColor);
             clearTimeout(timeoutId);
         }, 0);
     }
 
     isSatellite() {
         return true;
+    }
+
+    changeOverflowPath() {
+        this.#hasOverflowPath = !this.#hasOverflowPath;
     }
 }

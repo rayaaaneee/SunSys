@@ -1,4 +1,4 @@
-import { SolarSystem } from './objects/SolarSystem';
+import { SolarSystem } from './object/SolarSystem';
 
 var sunSys = new SolarSystem();
 
@@ -69,6 +69,8 @@ const speed = (range) => {
     rangeValueContainer.style.left = x + "%";
 
     sunSys.speedMultiplier = value;
+    sunSys.hideOrbitPathSat();
+    orbitPathSatCheckbox.checked = false;
 }
 
 const stopTimeButton = document.getElementById('stopTime');
@@ -221,9 +223,45 @@ const showFps = (checkbox) => {
     }
 }
 
+const printAsteroidBeltCheckbox = document.getElementById('printAsteroidBelt');
+printAsteroidBeltCheckbox.addEventListener('click', (e) => {
+    printAsteroidBelt(e.target);
+});
+const printAsteroidBelt = (checkbox) => {
+    switch (checkbox.checked) {
+        case true:
+            sunSys.printAsteroidBelt();
+            break;
+        case false:
+            sunSys.unprintAsteroidBelt();
+            break;
+    }
+}
+
+const printKuiperAsteroidBeltCheckbox = document.getElementById('printKuiperAsteroidBelt');
+printKuiperAsteroidBeltCheckbox.addEventListener('click', (e) => {
+    printKuiperAsteroidBelt(e.target);
+});
+const printKuiperAsteroidBelt = (checkbox) => {
+    switch (checkbox.checked) {
+        case true:
+            sunSys.printKuiperAsteroidBelt();
+            break;
+        case false:
+            sunSys.unprintKuiperAsteroidBelt();
+            break;
+    }
+}
+
 // Simuler le clic sur une planete : Raycaster();
 
 // Resize le canva quand on resize la fenetre
 window.addEventListener('resize', () => {
     sunSys.resize();
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === " ") {
+        stopTime(stopTimeButton);
+    }
 });

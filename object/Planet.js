@@ -76,13 +76,13 @@ export class Planet extends SpaceObject {
     defineOrbit() {
         let curve = new THREE.EllipseCurve(0,  0, this.moveCoord.x , 
         this.moveCoord.y, 0,  2 * Math.PI, false, 0);
-        
+
         let ellipsePoint = curve.getPoints(500);
 
         let ellipseGeometry = new THREE.BufferGeometry().setFromPoints(ellipsePoint);
-        
+
         let ellipseMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
-        
+
         this.#orbitPath = new THREE.Line(ellipseGeometry, ellipseMaterial);
     }
 

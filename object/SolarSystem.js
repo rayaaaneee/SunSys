@@ -1,14 +1,15 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import TWEEN from '@tweenjs/tween.js';
-import Stats from 'stats.js'
+import Stats from 'stats.js';
 import { Planet } from './Planet';
 import { Satellite } from './Satellite';
 
 // JSON des propriétés des planètes
 import planetJson from "../asset/data/planet.json";
+import beltsJson from "../asset/data/belt.json";
 // JSON des propriétés des satellites
 import satelliteJson from "../asset/data/satellite.json";
+import { AsteroidBelt } from './AsteroidBelt';
 
 export class SolarSystem {
 
@@ -44,6 +45,10 @@ export class SolarSystem {
     // Ensemble des astres du systeme solaire
     spaceObjects = [];
 
+    // Ensemble des ceintures d'astéroides
+    mainAsteroidBelt; kuiperBelt;
+    belts = [];
+
     // Valeurs
     baseSpeed = 0.0001;
     lastValueForSpeed = 0;
@@ -58,6 +63,7 @@ export class SolarSystem {
     isPreviousPlanetLinkVisible = false;
     areAlignedPlanets = false;
     speedMultiplier = 1;
+    startTracingOrbitTick = null;
 
     ticksRenderer = document.getElementById("ticks");
 
@@ -77,6 +83,8 @@ export class SolarSystem {
         this.setCameraPosition();
 
         this.initPlanets();
+
+        this.initBelts();
 
         this.initFalseStars();
 
@@ -116,6 +124,38 @@ export class SolarSystem {
         starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
         let stars = new THREE.Points(starsGeometry, new THREE.PointsMaterial({ color: 0x888888 }));
         this.scene.add(stars)
+    }
+
+    initBelts() {
+        beltsJson.forEach((belt) => {
+            let beltTmp = new AsteroidBelt(
+                this,
+                belt.name,
+                belt.minDistanceX,
+                belt.minDistanceY,
+                belt.radius,
+                belt.nbAsteroids,
+                belt.textures
+            );
+            this.belts.push(beltTmp);
+            this[ belt.variableName ] = beltTmp;
+        });
+    }
+
+    printAsteroidBelt() {
+        this.mainAsteroidBelt.add();
+    }
+
+    unprintAsteroidBelt() {
+        this.mainAsteroidBelt.remove();
+    }
+
+    printKuiperAsteroidBelt() {
+        this.kuiperBelt.add();
+    }
+
+    unprintKuiperAsteroidBelt() {
+        this.kuiperBelt.remove();
     }
 
     showLinksBetweenPlanets() {
@@ -427,6 +467,9 @@ export class SolarSystem {
                 for (let i = initialTick; i <= finalTick; i += 2) {
                     ticksToPoint.push(i);
                 }
+
+                let downScaleTick = Math.min(initialTick, finalTick);
+                let upScaleTick = Math.max(initialTick, finalTick);
 
                 ticksToPoint.forEach((tick) => {
                     this.satellites.forEach((satellite) => {

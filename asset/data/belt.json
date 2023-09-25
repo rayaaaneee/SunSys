@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Main asteroid belt",
+        "variableName": "mainAsteroidBelt",
+        "minDistanceX": 6,
+        "minDistanceY": 4.5,
+        "radius": 0.4,
+        "nbAsteroids": 200,
+        "textures": ["asteroid1.jpg", "asteroid2.jpg"]
+    },
+    {
+        "name": "Kuiper belt",
+        "variableName": "kuiperBelt",
+        "minDistanceX": 20,
+        "minDistanceY": 16.5,
+        "radius": 1.5,
+        "nbAsteroids": 500,
+        "textures": ["kuiper_asteroid1.jpg", "kuiper_asteroid2.jpg"]
+    }
+]

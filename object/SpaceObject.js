@@ -1,14 +1,5 @@
 import * as THREE from 'three';
-
-// Fonction qui permet de définir une valeur en fonction de l'environnement
-const isProduction = (productionValue, devValue = null) => {
-    if (process.env.NODE_ENV === "production") {
-        return productionValue;
-    } else if (devValue) {
-        return devValue;
-    }
-    return null;
-}
+import { isProduction } from '../function/isProduction.js';
 
 // Classe mère de tous les objets de l'espace
 export class SpaceObject {
@@ -77,6 +68,7 @@ export class SpaceObject {
         this.speedCoefficient = speedCoef;
 
         this.#mesh = new THREE.Mesh(this.ball, this.material);
+        this.#mesh.name = this.name;
 
         this.scale.x = scaleCoords[0];
         this.scale.y = scaleCoords[1];
@@ -125,7 +117,12 @@ export class SpaceObject {
     }
 
     updateLinkWithHostPlanet() {
-        let planetPosition = this.getMesh().position;
+        let planetPosition;
+        if (this.isSatellite()) {
+            planetPosition = this.getWorldCoords();
+        } else {
+            planetPosition = this.getMesh().position;
+        }
         this.linkToHost.geometry.setFromPoints([this.#hostPlanet.getMesh().position, planetPosition]);
         // Empeche la ligne de disparaitre si la camera est trop proche
         this.linkToHost.geometry.computeBoundingSphere();
