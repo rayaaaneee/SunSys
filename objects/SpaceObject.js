@@ -156,16 +156,21 @@ export class SpaceObject {
     }
 
     // Fonction qui retourne les coordonnées globales d'un satellite. Si des coordonnées sont passées, on retourne les coordonnées globales pour ces coordonnées précises, en prenant en compte la position intermédiaire de la planète hôte
-    getWorldCoords(satelliteCoords = null, hostPlanetPosition = null, hostPlanetRotation = null) {
+    getWorldCoords(coords = null) {
         let position;
-        if (satelliteCoords) {
+        if (coords) {
+
+            let satelliteCoords = coords.satelliteCoords;
+            let hostPlanetCoords = coords.hostPlanetCoords;
+            let hostPlanetRotation = coords.hostPlanetRotation;
+
             // On instancie une nouvelle Mesh pour ne pas altérer la planète hote courante, on l'ajoute ensuite à la scene pour pouvoir utiliser la fonction localToWorld
             let planetMeshClone = this.#hostPlanet.getMesh().clone();
             planetMeshClone.visible = false;
             this.solarSystem.scene.add(planetMeshClone);
 
             // On lui donne les bonnes coordonnées puis on récupère les coordonnées globales
-            planetMeshClone.position.set(hostPlanetPosition.x, hostPlanetPosition.y, hostPlanetPosition.z);
+            planetMeshClone.position.set(hostPlanetCoords.x, hostPlanetCoords.y, hostPlanetCoords.z);
             planetMeshClone.rotation.set(hostPlanetRotation.x, hostPlanetRotation.y, hostPlanetRotation.z);
             position = planetMeshClone.localToWorld(satelliteCoords);
 
