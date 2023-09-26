@@ -1,4 +1,7 @@
-import * as THREE from 'three';
+// Classes
+import { SphereGeometry, TextureLoader, MeshStandardMaterial, MeshBasicMaterial, Mesh, BufferGeometry, LineBasicMaterial, Line, Euler, RingGeometry, Color } from 'three';
+// Variables
+import { FrontSide, DoubleSide } from 'three';
 import { isProduction } from '../function/isProduction.js';
 
 // Classe mère de tous les objets de l'espace
@@ -8,6 +11,8 @@ export class SpaceObject {
     around = 3; // Arrondi des coordonnées
 
     name;
+    variableName;
+
     texture;
     material;
     initCoord = {
@@ -36,8 +41,8 @@ export class SpaceObject {
     #mesh;
 
     // Modeles 
-    ball = new THREE.SphereGeometry(1, 32, 32);
-    textureLoader = new THREE.TextureLoader();
+    ball = new SphereGeometry(1, 32, 32);
+    textureLoader = new TextureLoader();
 
     // Fonctionnalités annexe
     #hostPlanet;
@@ -47,16 +52,17 @@ export class SpaceObject {
     // Propriétés servant aux fonctionnalités
     oldRotate; // Mémorise la rotation de la planète avant l'alignement des planetes
 
-    constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet) {
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet) {
 
         this.solarSystem = solarSystem;
         this.name = name;
+        this.variableName = variableName;
 
         // En production, on ajuste le chemin des textures
         let texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
 
         this.texture = this.textureLoader.load(texturePath + texture);
-        this.material = new THREE.MeshStandardMaterial({ map: this.texture });
+        this.material = new MeshStandardMaterial({ map: this.texture });
 
         this.initCoord.x = initCoords[0];
         this.initCoord.y = initCoords[1];
@@ -67,8 +73,8 @@ export class SpaceObject {
 
         this.speedCoefficient = speedCoef;
 
-        this.#mesh = new THREE.Mesh(this.ball, this.material);
-        this.#mesh.name = this.name;
+        this.#mesh = new Mesh(this.ball, this.material);
+        this.#mesh.name = this.variableName;
 
         this.scale.x = scaleCoords[0];
         this.scale.y = scaleCoords[1];
@@ -106,12 +112,12 @@ export class SpaceObject {
     defineLinkWithHostPlanet() {
         const hostPlanetPosition = this.#hostPlanet.getMesh().position;
         const planetPosition = this.#mesh.position;
-        const lineGeometry = new THREE.BufferGeometry().setFromPoints([hostPlanetPosition, planetPosition]);
+        const lineGeometry = new BufferGeometry().setFromPoints([hostPlanetPosition, planetPosition]);
 
         lineGeometry.verticesNeedUpdate = true;
 
-        const lineMaterial = new THREE.LineBasicMaterial({ linewidth: 1 });
-        this.linkToHost = new THREE.Line(lineGeometry, lineMaterial);
+        const lineMaterial = new LineBasicMaterial({ linewidth: 1 });
+        this.linkToHost = new Line(lineGeometry, lineMaterial);
 
         this.setOrbitColor();
     }
@@ -194,11 +200,11 @@ export class SpaceObject {
         let y = (this.rotateCoord.y * tick).toFixed(this.around);
         let z = (this.rotateCoord.z * tick).toFixed(this.around);
 
-        return new THREE.Euler(x, y, z);
+        return new Euler(x, y, z);
     }
 
     addRing(innerRadius, outerRadius, thetaSegments, phiSegments, texture, isTransparent, opacity, rotationCoords, position = [0, 0, 0]) {
-        const ring = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments);
+        const ring = new RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments);
 
         // Générer les coordonnées UV personnalisées, arrondir l'image de texture à l'intérieur de l'anneau
         const uvs = ring.attributes.uv.array;
@@ -208,16 +214,16 @@ export class SpaceObject {
           uvs[i] = 0.5 + Math.cos(angle) * radius / (outerRadius - innerRadius);
           uvs[i + 1] = 0.5 + Math.sin(angle) * radius / (outerRadius - innerRadius);
         }
-      
+
         let texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
         const ringTexture = this.textureLoader.load(texturePath + texture);
         ringTexture.isTransparent = isTransparent;
-        
-        const ringMaterial = new THREE.MeshStandardMaterial({
+
+        const ringMaterial = new MeshStandardMaterial({
             map: ringTexture,
-            side: THREE.DoubleSide,
-            shadowSide: THREE.FrontSide, // Activer la réception d'ombres
-            emissive: new THREE.Color(0x000000), // Couleur émissive pour les lumières
+            side: DoubleSide,
+            shadowSide: FrontSide, // Activer la réception d'ombres
+            emissive: new Color(0x000000), // Couleur émissive pour les lumières
             emissiveIntensity: 0, // Intensité de l'émission lumineuse (ajustez selon vos besoins)
             depthWrite: false // Désactiver l'écriture de profondeur pour éviter les problèmes de superposition
           });
@@ -226,11 +232,13 @@ export class SpaceObject {
         ringMaterial.transparent = opacity < 1;
         ringMaterial.opacity = opacity;
       
-        const ringMesh = new THREE.Mesh(ring, ringMaterial);
+        const ringMesh = new Mesh(ring, ringMaterial);
         ringMesh.position.set(position[0], position[1], position[2]);
         ringMesh.rotation.set(rotationCoords[0], rotationCoords[1], rotationCoords[2]);
         ringMesh.receiveShadow = true;
         ringMesh.castShadow = true;
+
+        ringMesh.name = this.name;
 
         this.ring = ringMesh;
         this.#mesh.add(ringMesh);
@@ -247,7 +255,7 @@ export class SpaceObject {
 
     memorizeCurrentRotation() {
         // Créez un nouvel objet THREE.Euler pour stocker la rotation actuelle
-        this.oldRotate = new THREE.Euler().copy(this.#mesh.rotation);
+        this.oldRotate = new Euler().copy(this.#mesh.rotation);
     }
 
     setMemorizedOldRotation() {
@@ -261,5 +269,16 @@ export class SpaceObject {
 
     isSun() {
         return this.name === 'Sun';
+    }
+
+    removeLight() {
+        this.#mesh.material.color.setHex(0xffffff);
+        if (this.ring) {
+            this.ring.material.color.setHex(0xffffff);
+        }
+    }
+
+    showInfo() {
+        console.log(this);
     }
 }

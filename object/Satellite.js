@@ -1,6 +1,5 @@
-import * as THREE from 'three';
+import {PointsMaterial, Points, Float32BufferAttribute, Vector3 } from 'three';
 import { SpaceObject } from "./SpaceObject";
-import { SolarSystem } from './SolarSystem';
 
 export class Satellite extends SpaceObject {
 
@@ -12,19 +11,19 @@ export class Satellite extends SpaceObject {
     #initialBaseSpeed = this.#baseSpeed;
     #orbitColor;
 
-    constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
-        super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
+        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
 
         this.#orbitColor = parseInt(orbitColor, 16);
         this.defineInitialOrbitTracePoints();
     }
 
     defineInitialOrbitTracePoints() {
-        const material = new THREE.PointsMaterial({
+        const material = new PointsMaterial({
           color: this.#orbitColor, // Couleur blanche pour représenter la Lune
           size: 0.01, // Taille des points
         });
-        this.#points = new THREE.Points(undefined, material);
+        this.#points = new Points(undefined, material);
         this.#points.geometry.needsUpdate = true;
         this.#points.geometry.setFromPoints([]);
     }
@@ -72,15 +71,17 @@ export class Satellite extends SpaceObject {
     tracePoint(tick = null) {
         if (this.#hasOverflowPath) {
             if (this.solarSystem.ticks === this.solarSystem.startTracingOrbitTick) {
-                // if (this.name === "Moon") console.log("On a atteint le tick d'inversion, il n'y a plus rien à effacer");
+                // On a atteint le tick d'inversion, il n'y a plus rien à effacer
                 this.removeCurrentPoint();
                 this.#hasOverflowPath = false;
             } else {
-                // if (this.name === "Moon") console.log("On a pas atteint le tick d'inversion, on efface des points", this.#startTracingOrbitTick, this.solarSystem.ticks);
-                this.removeCurrentPoint()};
+                // On a pas atteint le tick d'inversion, on efface des points
+                this.removeCurrentPoint()
+            };
         } else {
-            // if (this.name === "Moon") console.log("Il n'y a rien a effacer, on pose des points");
-            this.setNewPoint(tick)};
+            // Il n'y a rien a effacer, on pose des points
+            this.setNewPoint(tick)
+        };
     }
 
     setNewPoint(tick = null){
@@ -105,7 +106,7 @@ export class Satellite extends SpaceObject {
         const newPositions = new Float32Array([...geometry.attributes.position.array, currentPoint.x, currentPoint.y, currentPoint.z]);
 
         // Mettre la variable this.points
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
+        geometry.setAttribute('position', new Float32BufferAttribute(newPositions, 3));
 
         // Empeche la ligne de disparaitre si la camera est trop proche
         geometry.computeBoundingSphere();
@@ -122,7 +123,7 @@ export class Satellite extends SpaceObject {
         let x = (this.moveCoord.x * (Math.cos((tick * speed) - angleHost))).toFixed(this.around);
         let y = (this.moveCoord.y * (Math.sin((tick * speed) - angleHost))).toFixed(this.around);
 
-        return new THREE.Vector3(x, y, 0);
+        return new Vector3(x, y, 0);
     }
 
     removeCurrentPoint() {
@@ -130,7 +131,7 @@ export class Satellite extends SpaceObject {
         if ( !geometry.attributes.position.array.length == 0 ) {
             const newPositions = new Float32Array([...geometry.attributes.position.array.slice(0, -3)]);
             // Mettre la variable this.points
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
+            geometry.setAttribute('position', new Float32BufferAttribute(newPositions, 3));
         }
     }
 
@@ -148,5 +149,9 @@ export class Satellite extends SpaceObject {
 
     changeOverflowPath() {
         this.#hasOverflowPath = !this.#hasOverflowPath;
+    }
+
+    addLight() {
+        this.getMesh().material.color.setHex(this.#orbitColor);
     }
 }

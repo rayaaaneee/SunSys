@@ -1,6 +1,7 @@
 [
     {
         "name": "Sun",
+        "variableName": "sun",
         "texture": "sun.jpg",
         "initCoords": {
             "x" : 0, 
@@ -24,10 +25,12 @@
         "speedCoef": 0,
         "emissiveMaterial" : {
             "color" : "0xffffff"
-        }
+        },
+        "color": "0x000000"
     },
     {
         "name": "Mercury",
+        "variableName": "mercury",
         "texture": "mercury.jpg",
         "initCoords": {
             "x" : 0, 
@@ -50,10 +53,12 @@
         },
         "speedCoef": 1.2,
         "hostPlanet": "Sun",
-        "previousPlanet": "Sun"
+        "previousPlanet": "Sun",
+        "color": "0x9e9e9e"
     },
     {
         "name": "Venus",
+        "variableName": "venus",
         "texture": "venus.jpg",
         "initCoords": {
             "x" : 0, 
@@ -76,10 +81,12 @@
         },
         "speedCoef": 1.4,
         "hostPlanet": "Sun",
-        "previousPlanet": "Mercury"
+        "previousPlanet": "Mercury",
+        "color": "0xffcc00"
     },
     {
         "name": "Earth",
+        "variableName": "earth",
         "texture": "earth.jpg",
         "initCoords": {
             "x" : 0, 
@@ -102,10 +109,12 @@
         },
         "speedCoef": 1.6,
         "hostPlanet": "Sun",
-        "previousPlanet": "Venus"
+        "previousPlanet": "Venus",
+        "color": "0x1976d2"
     },
     {
         "name": "Mars",
+        "variableName": "mars",
         "texture": "mars.jpg",
         "initCoords": {
             "x" : 0, 
@@ -128,10 +137,12 @@
         },
         "speedCoef": 1.8,
         "hostPlanet": "Sun",
-        "previousPlanet": "Earth"
+        "previousPlanet": "Earth",
+        "color": "0xff5722"
     },
     {
         "name": "Jupiter",
+        "variableName": "jupiter",
         "texture": "jupiter.jpg",
         "initCoords": {
             "x" : 0, 
@@ -154,10 +165,12 @@
         },
         "speedCoef": 2,
         "hostPlanet": "Sun",
-        "previousPlanet": "Mars"
+        "previousPlanet": "Mars",
+        "color": "0xffc107"
     },
     {
         "name": "Saturn",
+        "variableName": "saturn",
         "texture": "saturn.jpg",
         "initCoords": {
             "x" : 0, 
@@ -194,10 +207,12 @@
                 "y" : 0, 
                 "z" : 0
             }
-        }
+        },
+        "color": "0xe3c57e"
     },
     {
         "name": "Uranus",
+        "variableName": "uranus",
         "texture": "uranus.jpg",
         "initCoords": {
             "x" : 0, 
@@ -220,10 +235,12 @@
         },
         "speedCoef": 2.8,
         "hostPlanet": "Sun",
-        "previousPlanet": "Saturn"
+        "previousPlanet": "Saturn",
+        "color": "0x00bcd4"
     },
     {
         "name": "Neptune",
+        "variableName": "neptune",
         "texture": "neptune.jpg",
         "initCoords": {
             "x" : 0, 
@@ -246,10 +263,12 @@
         },
         "speedCoef": 3.2,
         "hostPlanet": "Sun",
-        "previousPlanet": "Uranus"
+        "previousPlanet": "Uranus",
+        "color": "0x2979ff"
     },
     {
         "name": "Pluto",
+        "variableName": "pluto",
         "texture": "pluto.jpg",
         "initCoords": {
             "x" : 0, 
@@ -272,6 +291,7 @@
         },
         "speedCoef": 3.7,
         "hostPlanet": "Sun",
-        "previousPlanet": "Neptune"
+        "previousPlanet": "Neptune",
+        "color": "0x8a8a8a"
     }
 ]

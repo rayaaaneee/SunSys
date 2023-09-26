@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import {isProduction} from '../function/isProduction.js';
+import { Group, TextureLoader, IcosahedronGeometry, DodecahedronGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { isProduction } from '../function/isProduction.js';
 
 export class AsteroidBelt {
 
@@ -22,18 +22,20 @@ export class AsteroidBelt {
     #deltaZ = 0.5;
 
     // Assets
-    #asteroidBelt = new THREE.Group();
+    #asteroidBelt = new Group();
     
     #solarSystem;
     
-    #textureLoader = new THREE.TextureLoader();
+    #textureLoader = new TextureLoader();
 
     #textures = [];
+
+    #variableName;
 
     // Utilitaires
     #texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
 
-    constructor(solarSystem, name, minDistanceX, minDistanceY, beltRadius, nbAsteroids, textures) {
+    constructor(solarSystem, name, variableName, minDistanceX, minDistanceY, beltRadius, nbAsteroids, textures) {
         this.#solarSystem = solarSystem;
 
         this.name = name;
@@ -44,6 +46,8 @@ export class AsteroidBelt {
         this.#beltRadius = beltRadius;
 
         this.#nbAsteroids = nbAsteroids;
+
+        this.#variableName = variableName;
 
         textures.forEach(texture => {
             this.#textures.push(texture);
@@ -63,19 +67,19 @@ export class AsteroidBelt {
         let asteroidGeometry;
         let randGeometry = Math.random() * 2;
         if (randGeometry < 1) {
-            asteroidGeometry = new THREE.IcosahedronGeometry(randRadius, 0);
+            asteroidGeometry = new IcosahedronGeometry(randRadius, 0);
         } else {
-            asteroidGeometry = new THREE.DodecahedronGeometry(randRadius, 0);
+            asteroidGeometry = new DodecahedronGeometry(randRadius, 0);
         }
 
         // On définit la texture avec du hasard
         let randTexture = Math.floor(Math.random() * this.#textures.length);
         let texture = this.#textures[randTexture];
-        let asteroidMaterial = new THREE.MeshBasicMaterial({
+        let asteroidMaterial = new MeshBasicMaterial({
             map: this.#textureLoader.load(this.#texturePath + texture)
         });
 
-        const asteroid = new THREE.Mesh(asteroidGeometry, asteroidMaterial);
+        const asteroid = new Mesh(asteroidGeometry, asteroidMaterial);
 
         const angle = Math.random() * Math.PI * 2;
 
@@ -92,7 +96,10 @@ export class AsteroidBelt {
         asteroid.position.set(
             minDistanceX + Math.random() * (maxDistanceX - minDistanceX), 
             minDistanceY + Math.random() * (maxDistanceY - minDistanceY), 
-            Math.random() * this.#deltaZ * negativeZ);
+            Math.random() * this.#deltaZ * negativeZ
+        );
+
+        asteroid.name = this.#variableName;
 
         this.#asteroidBelt.add(asteroid);
     }
@@ -103,5 +110,21 @@ export class AsteroidBelt {
 
     remove() {
         this.#solarSystem.scene.remove(this.#asteroidBelt);
+    }
+
+    addLight() {
+        this.#asteroidBelt.children.forEach(asteroid => {
+            asteroid.material.color.setHex(0xff0000);
+        });
+    }
+
+    removeLight() {
+        this.#asteroidBelt.children.forEach(asteroid => {
+            asteroid.material.color.setHex(0xffffff);
+        });
+    }
+
+    showInfo() {
+        console.log(this);
     }
 }

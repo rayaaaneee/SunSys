@@ -253,15 +253,6 @@ const printKuiperAsteroidBelt = (checkbox) => {
     }
 }
 
-// Simuler le clic sur une planete : Raycaster();
-
-// Resize le canva quand on resize la fenetre
-window.addEventListener('resize', () => {
-    sunSys.resize();
-});
-
 window.addEventListener('keydown', (e) => {
-    if (e.key === " ") {
-        stopTime(stopTimeButton);
-    }
+    e.key === " " && stopTime(stopTimeButton);
 });

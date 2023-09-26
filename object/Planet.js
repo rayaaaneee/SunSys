@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { LineBasicMaterial, Line, BufferGeometry, Vector3, EllipseCurve } from 'three';
 import { SpaceObject } from './SpaceObject';
 
 export class Planet extends SpaceObject {
@@ -11,8 +11,12 @@ export class Planet extends SpaceObject {
     #baseSpeed = 0.0001;
     #initialBaseSpeed = this.#baseSpeed;
 
-    constructor(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, previousPlanet, hostPlanet) {
-        super(solarSystem, name, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
+    #color;
+
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, color, previousPlanet, hostPlanet) {
+        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
+
+        this.#color = parseInt(color, 16);
 
         // Si la planète est le soleil, elle n'en a pas
         if (previousPlanet) {
@@ -26,12 +30,12 @@ export class Planet extends SpaceObject {
     defineLinkWithPreviousPlanet() {
         const previousPlanetPosition = this.#previousPlanet.getMesh().position;
         const planetPosition = super.getMesh().position;
-        const lineGeometry = new THREE.BufferGeometry().setFromPoints([previousPlanetPosition, planetPosition]);
+        const lineGeometry = new BufferGeometry().setFromPoints([previousPlanetPosition, planetPosition]);
 
         lineGeometry.verticesNeedUpdate = true;
 
-        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffa500, linewidth: 1 });
-        this.linkToPrevious = new THREE.Line(lineGeometry, lineMaterial);
+        const lineMaterial = new LineBasicMaterial({ color: 0xffa500, linewidth: 1 });
+        this.linkToPrevious = new Line(lineGeometry, lineMaterial);
     }
 
     updateLinkWithPreviousPlanet() {
@@ -62,7 +66,7 @@ export class Planet extends SpaceObject {
         let x = (this.moveCoord.x * (Math.cos(tick * speed))).toFixed(this.around);
         let y = (this.moveCoord.y * (Math.sin(tick * speed))).toFixed(this.around);
 
-        return new THREE.Vector3(x, y, 0);
+        return new Vector3(x, y, 0);
     }
 
     getSatellites() {
@@ -74,16 +78,16 @@ export class Planet extends SpaceObject {
     }
 
     defineOrbit() {
-        let curve = new THREE.EllipseCurve(0,  0, this.moveCoord.x , 
+        let curve = new EllipseCurve(0,  0, this.moveCoord.x , 
         this.moveCoord.y, 0,  2 * Math.PI, false, 0);
 
         let ellipsePoint = curve.getPoints(500);
 
-        let ellipseGeometry = new THREE.BufferGeometry().setFromPoints(ellipsePoint);
+        let ellipseGeometry = new BufferGeometry().setFromPoints(ellipsePoint);
 
-        let ellipseMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+        let ellipseMaterial = new LineBasicMaterial({ color: 0xffffff });
 
-        this.#orbitPath = new THREE.Line(ellipseGeometry, ellipseMaterial);
+        this.#orbitPath = new Line(ellipseGeometry, ellipseMaterial);
     }
 
     appearOrbit() {
@@ -113,5 +117,12 @@ export class Planet extends SpaceObject {
 
     setInitialBaseSpeed() {
         this.#baseSpeed = this.#initialBaseSpeed;
+    }
+
+    addLight() {
+        this.getMesh().material.color.setHex(this.#color);
+        if (this.ring) {
+            this.ring.material.color.setHex(this.#color);
+        }
     }
 }
