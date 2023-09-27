@@ -18,6 +18,10 @@ body {
   margin: 0;
 }
 
+body.pointer {
+  cursor: pointer;
+}
+
 canvas { width: 100%; height: 90% }
 
 #configPanel {

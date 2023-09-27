@@ -11,8 +11,8 @@ export class Satellite extends SpaceObject {
     #initialBaseSpeed = this.#baseSpeed;
     #orbitColor;
 
-    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet) {
-        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, orbitColor, hostPlanet, informations) {
+        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet, informations);
 
         this.#orbitColor = parseInt(orbitColor, 16);
         this.defineInitialOrbitTracePoints();

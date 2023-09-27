@@ -1,5 +1,6 @@
 import { Group, TextureLoader, IcosahedronGeometry, DodecahedronGeometry, MeshBasicMaterial, Mesh } from 'three';
 import { isProduction } from '../function/isProduction.js';
+import { BeltInformations } from './informations/BeltInformations.js';
 
 export class AsteroidBelt {
 
@@ -23,9 +24,9 @@ export class AsteroidBelt {
 
     // Assets
     #asteroidBelt = new Group();
-    
+
     #solarSystem;
-    
+
     #textureLoader = new TextureLoader();
 
     #textures = [];
@@ -35,7 +36,7 @@ export class AsteroidBelt {
     // Utilitaires
     #texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
 
-    constructor(solarSystem, name, variableName, minDistanceX, minDistanceY, beltRadius, nbAsteroids, textures) {
+    constructor(solarSystem, name, variableName, minDistanceX, minDistanceY, beltRadius, nbAsteroids, textures, informations) {
         this.#solarSystem = solarSystem;
 
         this.name = name;
@@ -56,6 +57,8 @@ export class AsteroidBelt {
         for (let i = 0; i < this.#nbAsteroids; i++) {
             this.#addAsteroid();
         }
+
+        this.informations = new BeltInformations(informations);
     }
 
     #addAsteroid() {
@@ -99,6 +102,12 @@ export class AsteroidBelt {
             Math.random() * this.#deltaZ * negativeZ
         );
 
+        asteroid.rotation.set(
+            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI * 2
+        );
+
         asteroid.name = this.#variableName;
 
         this.#asteroidBelt.add(asteroid);
@@ -125,6 +134,10 @@ export class AsteroidBelt {
     }
 
     showInfo() {
-        console.log(this);
+        console.log(this.informations);
+    }
+
+    getMesh() {
+        return this.#asteroidBelt;
     }
 }

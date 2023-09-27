@@ -13,8 +13,8 @@ export class Planet extends SpaceObject {
 
     #color;
 
-    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, color, previousPlanet, hostPlanet) {
-        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet);
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, color, previousPlanet, hostPlanet, informations) {
+        super(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet, informations);
 
         this.#color = parseInt(color, 16);
 
@@ -120,7 +120,12 @@ export class Planet extends SpaceObject {
     }
 
     addLight() {
-        this.getMesh().material.color.setHex(this.#color);
+        if (this.isSun()) {
+            this.getMesh().material.emissive.setHex(this.#color);
+        } else {
+            this.getMesh().material.color.setHex(this.#color);
+        }
+        // Si il y a un anneau, on change aussi sa couleur
         if (this.ring) {
             this.ring.material.color.setHex(this.#color);
         }

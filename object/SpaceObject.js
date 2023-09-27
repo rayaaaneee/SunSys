@@ -1,8 +1,12 @@
 // Classes
-import { SphereGeometry, TextureLoader, MeshStandardMaterial, MeshBasicMaterial, Mesh, BufferGeometry, LineBasicMaterial, Line, Euler, RingGeometry, Color } from 'three';
+import { SphereGeometry, TextureLoader, MeshStandardMaterial, Mesh, BufferGeometry, LineBasicMaterial, Line, Euler, RingGeometry, Color } from 'three';
 // Variables
 import { FrontSide, DoubleSide } from 'three';
 import { isProduction } from '../function/isProduction.js';
+
+import { StarInformations } from './informations/StarInformations.js';
+import { PlanetInformations } from './informations/PlanetInformations.js';
+import { SatelliteInformations } from './informations/SatelliteInformations.js';
 
 // Classe mère de tous les objets de l'espace
 export class SpaceObject {
@@ -34,6 +38,7 @@ export class SpaceObject {
         y: null,
         z: null
     }
+
     speedCoefficient;
 
     solarSystem;
@@ -52,7 +57,9 @@ export class SpaceObject {
     // Propriétés servant aux fonctionnalités
     oldRotate; // Mémorise la rotation de la planète avant l'alignement des planetes
 
-    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet) {
+    informations;
+
+    constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet, informations) {
 
         this.solarSystem = solarSystem;
         this.name = name;
@@ -107,6 +114,8 @@ export class SpaceObject {
         } else {
             this.solarSystem.scene.add(this.#mesh);
         }
+
+        this.setInformations(informations);
     }
 
     defineLinkWithHostPlanet() {
@@ -238,7 +247,7 @@ export class SpaceObject {
         ringMesh.receiveShadow = true;
         ringMesh.castShadow = true;
 
-        ringMesh.name = this.name;
+        ringMesh.name = this.variableName;
 
         this.ring = ringMesh;
         this.#mesh.add(ringMesh);
@@ -268,17 +277,31 @@ export class SpaceObject {
     }
 
     isSun() {
-        return this.name === 'Sun';
+        return this.name === "Sun";
     }
 
     removeLight() {
-        this.#mesh.material.color.setHex(0xffffff);
+        if (this.isSun()) {
+            this.#mesh.material.emissive.setHex(0xffffff);
+        } else {
+            this.#mesh.material.color.setHex(0xffffff);
+        }
         if (this.ring) {
             this.ring.material.color.setHex(0xffffff);
         }
     }
 
     showInfo() {
-        console.log(this);
+        console.log(this.informations);
+    }
+
+    setInformations(informations) {
+        if (this.isSun()) {
+            this.informations = new StarInformations(informations);
+        } else if (this.isPlanet()) {
+            this.informations = new PlanetInformations(informations);
+        } else {
+            this.informations = new SatelliteInformations(informations);
+        }
     }
 }

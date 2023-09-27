@@ -24,7 +24,23 @@
         },
         "speedCoef": 8,
         "hostPlanet": "Earth",
-        "orbitColor": "0x00bfff"
+        "orbitColor": "0x00bfff",
+        "informations": {
+            "diameter": 3475,
+            "moyDistanceToHost": 384400,
+            "rotationPeriod": 655.728,
+            "revolutionPeriod": 27.322,
+            "composition": {
+              "Roches": "100%",
+              "Débris": "Traces",
+              "Poussières": "Traces"
+            },
+            "caracteristics": [
+              "Seul satellite naturel de la Terre.",
+              "Elle présente des cratères, des mares lunaires (mares), et des montagnes.",
+              "La Lune a une influence significative sur les marées de la Terre."
+            ]
+        }
     },
     {
         "name": "Io",
@@ -51,7 +67,22 @@
         },
         "speedCoef": 20,
         "hostPlanet": "Jupiter",
-        "orbitColor": "0xff4500"
+        "orbitColor": "0xff4500",
+        "informations": {
+            "diameter": 3637,
+            "moyDistanceToHost": 421700,
+            "rotationPeriod": 42.456,
+            "revolutionPeriod": 1.769,
+            "composition": {
+              "Sulfure de sodium": "45%",
+              "Soufre": "30%",
+              "Silicate de fer": "25%"
+            },
+            "caracteristics": [
+              "Io est l'un des mondes les plus volcaniquement actifs du système solaire.",
+              "Sa surface est constamment remodelée par les éruptions volcaniques."
+            ]
+        }
     },
     {
         "name": "Europa",
@@ -78,7 +109,21 @@
         },
         "speedCoef": 24,
         "hostPlanet": "Jupiter",
-        "orbitColor": "0xb0e0e6"
+        "orbitColor": "0xb0e0e6",
+        "informations": {
+            "diameter": 3121,
+            "moyDistanceToHost": 670900,
+            "rotationPeriod": 85.228,
+            "revolutionPeriod": 3.551,
+            "composition": {
+              "Croûte de glace": "100%",
+              "Eau": "Sous la croûte"
+            },
+            "caracteristics": [
+              "Europe abrite un vaste océan d'eau liquide sous sa croûte de glace.",
+              "Cet océan souterrain pourrait offrir des conditions propices à la vie."
+            ]
+        }
     },
     {
         "name": "Titan",
@@ -105,7 +150,22 @@
         },
         "speedCoef": 12,
         "hostPlanet": "Saturn",
-        "orbitColor": "0xd2691e"
+        "orbitColor": "0xd2691e",
+        "informations": {
+            "diameter": 5150,
+            "moyDistanceToHost": 1221870,
+            "rotationPeriod": 382.68,
+            "revolutionPeriod": 15.945,
+            "composition": {
+              "Azote": "94%",
+              "Méthane": "6%",
+              "Hydrocarbures": "Traces"
+            },
+            "caracteristics": [
+              "Titan possède une atmosphère épaisse et brumeuse composée principalement d'azote.",
+              "Il abrite des lacs et des rivières de méthane et d'éthane à sa surface."
+            ]
+          }
     },
     {
         "name": "Enceladus",
@@ -132,7 +192,21 @@
         },
         "speedCoef": 18,
         "hostPlanet": "Saturn",
-        "orbitColor": "0xffffff"
+        "orbitColor": "0x808080",
+        "informations": {
+            "diameter": 504,
+            "moyDistanceToHost": 238.020,
+            "rotationPeriod": 32.88,
+            "revolutionPeriod": 1.37,
+            "composition": {
+              "Eau": "100%",
+              "Glace": "Traces"
+            },
+            "caracteristics": [
+              "Encelade est un petit satellite avec un intérieur actif.",
+              "Elle éjecte des panaches de glace et d'eau depuis des fractures près de son pôle sud."
+            ]
+        }
     },
     {
         "name": "Phobos",
@@ -145,7 +219,7 @@
         },
         "moveCoords": {
             "x" : 3, 
-            "y" : 2.8
+            "y" : 2.6
         },
         "scaleCoords": {
             "x" : 0.5, 
@@ -159,7 +233,21 @@
         },
         "speedCoef": 6,
         "hostPlanet": "Mars",
-        "orbitColor": "0x8b0000"
+        "orbitColor": "0x8b0000",
+        "informations" : {
+            "diameter": 22.2,
+            "moyDistanceToHost": 9378,
+            "rotationPeriod": 7.654,
+            "revolutionPeriod": 7.654,
+            "composition": {
+              "Mélange de roches": "100%"
+            },
+            "caracteristics": [
+              "Phobos est l'une des lunes de Mars.",
+              "Elle est très proche de Mars et orbite à une distance remarquablement faible.",
+              "Phobos a une période de rotation synchrone, elle met le meme temps à tourner autour de la Mars qu'à tourner sur elle même. Cela fait qu'elle montre toujours la même face à Mars."
+            ]
+        }
     }, 
     {
         "name": "Deimos",
@@ -171,8 +259,8 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 3, 
-            "y" : 2.8
+            "x" : 4.5,
+            "y" : 3.9
         },
         "scaleCoords": {
             "x" : 0.5, 
@@ -184,9 +272,22 @@
             "y" : 0, 
             "z" : 0.02
         },
-        "speedCoef": 6,
+        "speedCoef": 9,
         "hostPlanet": "Mars",
-        "orbitColor": "0xa9a9a9"
+        "orbitColor": "0xa9a9a9",
+        "informations": {
+            "diameter": 12.4,
+            "moyDistanceToHost": 23460,
+            "rotationPeriod": 30.312,
+            "revolutionPeriod": 1.262,
+            "composition": {
+              "Mélange de roches": "100%"
+            },
+            "caracteristics": [
+              "Deimos est l'une des lunes de Mars, mais plus éloignée que Phobos.",
+              "Elle est beaucoup plus petite que Phobos et a une forme irrégulière."
+            ]
+        }
     }, 
     {
         "name": "Triton",
@@ -213,6 +314,21 @@
         },
         "speedCoef": 12,
         "hostPlanet": "Neptune",
-        "orbitColor": "0xadd8e6 "
+        "orbitColor": "0xadd8e6",
+        "informations": {
+            "diameter": 2707,
+            "moyDistanceToHost": 354800,
+            "rotationPeriod": -141.056,
+            "revolutionPeriod": -5.876,
+            "composition": {
+              "Azote": "70%",
+              "Glace d'eau": "15%",
+              "Roches": "15%"
+            },
+            "caracteristics": [
+              "Triton est la plus grande lune de Neptune et possède une atmosphère très mince.",
+              "Il orbite autour de Neptune dans le sens opposé à la rotation de la planète."
+            ]
+          }
     }
 ]

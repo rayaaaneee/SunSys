@@ -26,7 +26,21 @@
         "emissiveMaterial" : {
             "color" : "0xffffff"
         },
-        "color": "0x000000"
+        "color": "0xde8f5b",
+        "informations" : {
+            "type": "Étoile naine jaune",
+            "age": 4.6,
+            "mass": "1,98892 × 10^30",
+            "diameter": 1391000,
+            "surfaceTemperature": 5500,
+            "interiorTemperature": 15000000,
+            "luminiosity": "3.828 * 10^26",
+            "composition": {
+              "Hydrogène": "74%",
+              "Hélium": "24%",
+              "Autres éléments": "2%"
+            }
+        }
     },
     {
         "name": "Mercury",
@@ -54,7 +68,23 @@
         "speedCoef": 1.2,
         "hostPlanet": "Sun",
         "previousPlanet": "Sun",
-        "color": "0x9e9e9e"
+        "color": "0x9e9e9e",
+        "informations" : {
+            "moyDistance": 57.91,
+            "revolutionPeriod": 87.97,
+            "rotationPeriod": 1407.6,
+            "moyTemperature": 167,
+            "moyOrbitSpeed": 47.87,
+            "mass": 0.055,
+            "diameter": 4879,
+            "composition": {
+              "Fer": "35%",
+              "Silicium": "29%",
+              "Oxygène": "24%",
+              "Magnésium": "7%",
+              "Autres éléments": "5%"
+            }
+        }
     },
     {
         "name": "Venus",
@@ -82,7 +112,21 @@
         "speedCoef": 1.4,
         "hostPlanet": "Sun",
         "previousPlanet": "Mercury",
-        "color": "0xffcc00"
+        "color": "0xffcc00",
+        "informations": {
+            "moyDistance": 108.2,
+            "revolutionPeriod": 224.7,
+            "rotationPeriod": 5832.5,
+            "moyTemperature": 464,
+            "moyOrbitSpeed": 35.02,
+            "mass": 0.815,
+            "diameter": 12104,
+            "composition": {
+              "Dioxyde de carbone": "96.5%",
+              "Azote": "3.5%",
+              "Autres éléments": "Traces"
+            }
+        }
     },
     {
         "name": "Earth",
@@ -110,7 +154,23 @@
         "speedCoef": 1.6,
         "hostPlanet": "Sun",
         "previousPlanet": "Venus",
-        "color": "0x1976d2"
+        "color": "0x1976d2",
+        "informations": {
+            "moyDistance": 149.6,
+            "revolutionPeriod": 365.25,
+            "rotationPeriod": 24,
+            "moyTemperature": 14,
+            "moyOrbitSpeed": 29.78,
+            "mass": 1,
+            "diameter": 12742,
+            "composition": {
+              "Fer": "34.6%",
+              "Oxygène": "29.5%",
+              "Silicium": "15.2%",
+              "Magnésium": "12.7%",
+              "Autres éléments": "8%"
+            }
+        }
     },
     {
         "name": "Mars",
@@ -138,7 +198,22 @@
         "speedCoef": 1.8,
         "hostPlanet": "Sun",
         "previousPlanet": "Earth",
-        "color": "0xff5722"
+        "color": "0xff5722",
+        "informations": {
+            "moyDistance": 227.9,
+            "revolutionPeriod": 687,
+            "rotationPeriod": 24.6,
+            "moyTemperature": -80,
+            "moyOrbitSpeed": 24.077,
+            "mass": 0.107,
+            "diameter": 6792,
+            "composition": {
+              "Fer": "15%",
+              "Oxygène": "42%",
+              "Silicium": "20%",
+              "Autres éléments": "23%"
+            }
+        }
     },
     {
         "name": "Jupiter",
@@ -166,7 +241,21 @@
         "speedCoef": 2,
         "hostPlanet": "Sun",
         "previousPlanet": "Mars",
-        "color": "0xffc107"
+        "color": "0xffc107",
+        "informations": {
+            "moyDistance": 778.3,
+            "revolutionPeriod": 4331,
+            "rotationPeriod": 9.9,
+            "moyTemperature": -145,
+            "moyOrbitSpeed": 13.07,
+            "mass": 317.8,
+            "diameter": 139822,
+            "composition": {
+              "Hydrogène": "90%",
+              "Hélium": "10%",
+              "Autres éléments": "Traces"
+            }
+        }
     },
     {
         "name": "Saturn",
@@ -208,7 +297,21 @@
                 "z" : 0
             }
         },
-        "color": "0xe3c57e"
+        "color": "0xe3c57e",
+        "informations": {
+            "moyDistance": 1427,
+            "revolutionPeriod": 10747,
+            "rotationPeriod": 10.7,
+            "moyTemperature": -178,
+            "moyOrbitSpeed": 9.69,
+            "mass": 95.2,
+            "diameter": 116464,
+            "composition": {
+              "Hydrogène": "96.3%",
+              "Hélium": "3.25%",
+              "Autres éléments": "Traces"
+            }
+        }
     },
     {
         "name": "Uranus",
@@ -236,7 +339,22 @@
         "speedCoef": 2.8,
         "hostPlanet": "Sun",
         "previousPlanet": "Saturn",
-        "color": "0x00bcd4"
+        "color": "0x00bcd4",
+        "informations": {
+            "moyDistance": 2871,
+            "revolutionPeriod": 30660,
+            "rotationPeriod": 17.2,
+            "moyTemperature": -224,
+            "moyOrbitSpeed": 6.8,
+            "mass": 14.6,
+            "diameter": 50724,
+            "composition": {
+              "Hydrogène": "83%",
+              "Hélium": "15%",
+              "Méthane": "2%",
+              "Autres éléments": "Traces"
+            }
+          }
     },
     {
         "name": "Neptune",
@@ -264,7 +382,22 @@
         "speedCoef": 3.2,
         "hostPlanet": "Sun",
         "previousPlanet": "Uranus",
-        "color": "0x2979ff"
+        "color": "0x2979ff",
+        "informations": {
+            "moyDistance": 4497,
+            "revolutionPeriod": 60190,
+            "rotationPeriod": 16.1,
+            "moyTemperature": -218,
+            "moyOrbitSpeed": 5.43,
+            "mass": 17.2,
+            "diameter": 49244,
+            "composition": {
+              "Hydrogène": "80%",
+              "Hélium": "19%",
+              "Méthane": "0.013%",
+              "Autres éléments": "Traces"
+            }
+          }
     },
     {
         "name": "Pluto",
@@ -292,6 +425,20 @@
         "speedCoef": 3.7,
         "hostPlanet": "Sun",
         "previousPlanet": "Neptune",
-        "color": "0x8a8a8a"
+        "color": "0x8a8a8a",
+        "informations": {
+            "moyDistance": 5914.7,
+            "revolutionPeriod": 90560,
+            "rotationPeriod": -153.3,
+            "moyTemperature": -225,
+            "moyOrbitSpeed": 4.67,
+            "mass": 0.0022,
+            "diameter": 2370,
+            "composition": {
+              "Glaces d'eau": "50-70%",
+              "Roches": "30-50%",
+              "Autres éléments": "Traces"
+            }
+        }
     }
 ]

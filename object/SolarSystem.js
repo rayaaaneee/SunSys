@@ -97,6 +97,9 @@ export class SolarSystem {
         window.addEventListener('click', this.setIsCurrentlyClicked.bind(this));
         window.addEventListener('pointermove', this.onPointerMove.bind(this));
 
+        // De base on place le poiteur au bout de l'écran pour qu'aucun astre ne soit survolé au chargement de la page
+        this.pointer.set(window.innerWidth, window.innerHeight);
+
         // On lance une frame d'animation
         this.render();
     }
@@ -107,8 +110,10 @@ export class SolarSystem {
 
     onPointerMove(event) {
         // Mettre à jour les coordonnées de la souris
-        this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-        this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        this.pointer.set(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            -(event.clientY / window.innerHeight) * 2 + 1
+        );
     }
 
     printFramesPerSecond() {
@@ -150,7 +155,8 @@ export class SolarSystem {
                 belt.minDistanceY,
                 belt.radius,
                 belt.nbAsteroids,
-                belt.textures
+                belt.textures,
+                belt.informations
             );
             this.belts.push(beltTmp);
             this[ belt.variableName ] = beltTmp;
@@ -378,7 +384,8 @@ export class SolarSystem {
                 spaceObject.color,
                 // Si la planète possède une planète précédente, on lui passe l'objet de la planète précédente, sinon on ne lui passe rien
                 spaceObject.previousPlanet ? this[spaceObject.previousPlanet.toLowerCase()] : null,
-                spaceObject.hostPlanet ? this[spaceObject.hostPlanet.toLowerCase()] : null
+                spaceObject.hostPlanet ? this[spaceObject.hostPlanet.toLowerCase()] : null,
+                spaceObject.informations
             );
             // On crée dynamiquement la propriété de l'objet courant
             this.setProperty(spaceObject.variableName, spaceObjectTmp);
@@ -397,7 +404,8 @@ export class SolarSystem {
                 rotationCoords,
                 spaceObject.speedCoef,
                 spaceObject.orbitColor,
-                this[spaceObject.hostPlanet.toLowerCase()]
+                this[spaceObject.hostPlanet.toLowerCase()],
+                spaceObject.informations
             );
             this.setProperty(spaceObject.variableName, spaceObjectTmp);
             this.satellites.push(this[spaceObject.variableName])
@@ -447,7 +455,7 @@ export class SolarSystem {
             this.#createSpaceObjects(satellite);
         });
 
-        this.spaceObjects = [...this.planets, ...this.satellites];
+        this.spaceObjects = [this.sun, ...this.planets, ...this.satellites];
 
         this.pointLight.position.set(0, 0, 0);
         this.scene.add(this.pointLight);
@@ -462,9 +470,13 @@ export class SolarSystem {
     }
 
     updateRaycaster() {
+        // Initialisation
         this.raycaster.setFromCamera( this.pointer, this.camera.perspectiveCamera );
 
-        const intersects = this.raycaster.intersectObjects( this.scene.children );
+        const intersects = this.raycaster.intersectObjects( [
+            ...this.spaceObjects.map((planet) => planet.getMesh()),
+            ...this.belts.map((belt) => belt.getMesh())
+        ] );
 
         this.spaceObjects.forEach((spaceObject) => {
             spaceObject.removeLight();
@@ -472,6 +484,7 @@ export class SolarSystem {
         this.belts.forEach((belt) => {
             belt.removeLight();
         });
+        document.body.classList.remove("pointer");
 
         // Les éléments survolés sont coloriés
         for ( let i = 0; i < intersects.length; i ++ ) {
@@ -482,6 +495,11 @@ export class SolarSystem {
                    this[object.name].showInfo();
                 }
             }
+        }
+
+        // Si un astre est survolé, on change le curseur de la souris
+        if (intersects.length > 0) {
+            document.body.classList.add("pointer");
         }
     }
 
