@@ -107,7 +107,7 @@ export class SolarSystem {
         // De base on place le poiteur au bout de l'écran pour qu'aucun astre ne soit survolé au chargement de la page
         this.pointer.set(window.innerWidth, window.innerHeight);
 
-        this.allObjects = [ ...this.spaceObjects, ...this.belts ];
+        this.allObjects = [...this.spaceObjects];
 
         // On lance une frame d'animation
         this.render();
@@ -173,18 +173,22 @@ export class SolarSystem {
     }
 
     printAsteroidBelt() {
+        this.allObjects.push(this.mainAsteroidBelt);
         this.mainAsteroidBelt.add();
     }
 
     unprintAsteroidBelt() {
+        this.allObjects = this.allObjects.filter((object) => object !== this.mainAsteroidBelt);
         this.mainAsteroidBelt.remove();
     }
 
     printKuiperAsteroidBelt() {
+        this.allObjects.push(this.kuiperBelt);
         this.kuiperBelt.add();
     }
 
     unprintKuiperAsteroidBelt() {
+        this.allObjects = this.allObjects.filter((object) => object !== this.kuiperBelt);
         this.kuiperBelt.remove();
     }
 
@@ -482,10 +486,9 @@ export class SolarSystem {
         // Initialisation
         this.raycaster.setFromCamera( this.pointer, this.camera.perspectiveCamera );
 
-        const intersects = this.raycaster.intersectObjects( [
-            ...this.spaceObjects.map((planet) => planet.getMesh()),
-            ...this.belts.map((belt) => belt.getMesh())
-        ] );
+        const intersects = this.raycaster.intersectObjects(
+            this.allObjects.map((planet) => planet.getMesh()),
+        );
 
         this.allObjects.forEach((object) => {
             object.onHoverOut();
