@@ -8,9 +8,10 @@
         "nbAsteroids": 200,
         "textures": ["asteroid1.jpg", "asteroid2.jpg"],
         "informations": {
+            "image": "main_asteroid_belt.png",
             "location": "Entre les orbites de Mars et Jupiter",
-            "composition": ["Roches", "Silicate" , "Nickel" , "Fer", "Carbone", "Métaux", "Hydrates"],
             "numberOfAsteroids": "Plus d'un million d'objets répertoriés",
+            "composition": ["Roches", "Silicate" , "Nickel" , "Fer", "Carbone", "Métaux", "Hydrates"],
             "caracteristics": [
               "La Ceinture d'astéroïdes principale est une région dense d'astéroïdes et de petits objets orbitant autour du Soleil.",
               "La plupart des astéroïdes de la ceinture sont relativement petits, bien que certains puissent atteindre des tailles considérables.",
@@ -27,9 +28,10 @@
         "nbAsteroids": 500,
         "textures": ["kuiper_asteroid1.jpg", "kuiper_asteroid2.jpg"],
         "informations": {
+            "image": "kuiper_belt.png",
             "location": "Au-delà de l'orbite de Neptune",
+            "numberOfAsteroids": "Plusieurs milliards d'objets répertoriés",
             "composition": ["Objets glacés", "Eau" , "Méthane", "Azote", "Roches",  "Poussières"],
-            "numberOfAsteroids": "Des milliards d'objets, y compris des planètes naines, des comètes et des astéroïdes glacés.",
             "caracteristics": [
               "La Ceinture de Kuiper est une région étendue du système solaire au-delà de l'orbite de Neptune.",
               "Elle contient une grande variété d'objets glacés, dont certains sont considérés comme des planètes naines, tels que Pluton, Éris et Makémaké.",

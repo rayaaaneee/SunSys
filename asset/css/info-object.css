@@ -2,12 +2,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 400px;
+    width: fit-content;
+    max-width: 40vw;
     height: 100%;
     background-color: rgb(198 98 98 / 90%);
     display: flex;
     justify-content: center;
-    align-items: center;
     z-index: 100;
     opacity: 0;
     animation: opacityUp 0.2s forwards 0.1s;
@@ -36,4 +36,66 @@
 
 #infoObject #closeInfo:hover {
     background-color: rgb(224, 95, 117)
+}
+
+#infoObject .content {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    padding: 35px 30px 0 40px;
+    row-gap: 10px;
+}
+
+#infoObject .content .title {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-decoration: overline;
+}
+
+#infoObject .content img {
+    min-width: 70px;
+    height: 70px;
+    width: fit-content;
+    object-fit: cover;
+    filter: drop-shadow(0px 0px 20px white);
+}
+
+#infoObject .content .line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: start;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+#infoObject .content .line.title {
+    column-gap: 25px;
+}
+
+#infoObject .content .line.vertical {
+    flex-direction: column;
+    align-items: start;
+    align-self: start;
+    row-gap: 5px;
+}
+
+#infoObject .content .line.composition {
+    margin-left: 35px;
+}
+
+#infoObject .content .line.composition .composition-element {
+    font-style: italic;
+}
+
+#infoObject .content .line p {
+    margin: 0;
+    padding: 0;
+}
+
+#infoObject .content .line .subtitle {
+    font-size: 15px;
+    font-weight: 600;
 }

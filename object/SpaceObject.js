@@ -62,7 +62,6 @@ export class SpaceObject {
     oldRotate; // Mémorise la rotation de la planète avant l'alignement des planetes
 
     informations;
-    isHovered = false;
 
     constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet, informations) {
 
@@ -346,14 +345,10 @@ export class SpaceObject {
                 satellite.addLight(false);
             });
         }
-
-        this.isHovered = true;
     }
 
     onHoverOut() {
         this.removeScale();
         this.removeLight();
-
-        this.isHovered = false;
     }
 }

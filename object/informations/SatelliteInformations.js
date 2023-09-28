@@ -2,6 +2,8 @@ import { SolarSystem } from "../SolarSystem";
 
 export class SatelliteInformations {
 
+    image;
+
     // Objet du satellite original
     satellite;
 
@@ -27,7 +29,47 @@ export class SatelliteInformations {
 
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
-            <p>${this.satellite.name}</p>
+            <div class="line title">
+                <img src="./asset/img/info-image/${this.image}"/>
+                <p class="title">${this.satellite.name}</p>
+            </div>
+            <div class="line">
+                <p>• Satellite de </p>
+                <p class="subtitle">${this.satellite.getHostPlanet().name}</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Diamètre : </p>
+                <p>${this.diameter} kilomètres</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Distance moyenne de ${this.satellite.getHostPlanet().name} : </p>
+                <p>${this.moyDistanceToHost} kilomètres</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Période de rotation : </p>
+                <p>${this.rotationPeriod} heures</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Période de révolution : </p>
+                <p>${this.revolutionPeriod} jours</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Composition : </p>
+            </div>
+            ${Object.entries(this.composition).map(([element, percent]) => `
+                <div class="line composition">
+                    <p class="composition-element">• ${element} : </p>
+                    <p>${percent}</p>
+                </div>
+            `).join("")}
+            <div class="line">
+                <p class="subtitle">Caractériques : </p>
+            </div>
+            ${this.caracteristics.map((element) => `
+                <div class="line composition">
+                    <p>• ${element}</p>
+                </div>
+            `).join("")}
         `;
     }
 }

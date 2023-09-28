@@ -107,6 +107,8 @@ export class SolarSystem {
         // De base on place le poiteur au bout de l'écran pour qu'aucun astre ne soit survolé au chargement de la page
         this.pointer.set(window.innerWidth, window.innerHeight);
 
+        this.allObjects = [ ...this.spaceObjects, ...this.belts ];
+
         // On lance une frame d'animation
         this.render();
     }
@@ -463,8 +465,6 @@ export class SolarSystem {
         });
 
         this.spaceObjects = [this.sun, ...this.planets, ...this.satellites];
-
-        this.allObjects = [ ...this.spaceObjects, ...this.belts ]
 
         this.pointLight.position.set(0, 0, 0);
         this.scene.add(this.pointLight);

@@ -2,15 +2,17 @@ import { SolarSystem } from "../SolarSystem";
 
 export class BeltInformations {
 
+    image;
+
     // Objet de la ceinture originale
     belt;
 
     // Emplacement de la ceinture d'asteroides
     location;
-    // Composition de la ceinture d'asteroides
-    composition;
     // Nombre d'asteroides
     numberOfAsteroids;
+    // Composition de la ceinture d'asteroides
+    composition;
     // Caractéristiques de la ceinture d'asteroides
     caracteristics;
 
@@ -23,7 +25,35 @@ export class BeltInformations {
 
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
-            <p>${this.belt.name}</p>
+            <div class="line title">
+                <img src="./asset/img/info-image/${this.image}"/>
+                <p class="title">${this.belt.name}</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Emplacement : </p>
+                <p>${this.location}</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Nombre d'asteroides : </p>
+                <p>${this.numberOfAsteroids}</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Composition des astéroides : </p>
+            </div>
+            ${this.composition.map((element) => `
+            <div class="line composition">
+                <p>• ${element}</p>
+            </div>
+            `).join("")}
+            <div class="line">
+                <p class="subtitle">Caractéristiques : </p>
+            </div>
+            ${this.caracteristics.map((element) => `
+                <div class="line composition">
+                    <p>• ${element}</p>
+                </div>
+            `).join("")}
+
         `;
     }
 }

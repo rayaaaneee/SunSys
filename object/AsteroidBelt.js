@@ -136,15 +136,15 @@ export class AsteroidBelt {
     }
 
     addScale() {
-        let constant = 1.2;
+/*         let constant = 1.2;
         this.#asteroidBelt.children.forEach((asteroid, index) => {
             /* this.#radiusTab[index] * constant, 
-            asteroid.setRadius(this.#radiusTab[index] * constant); */
-        });
+            asteroid.setRadius(this.#radiusTab[index] * constant);
+        }); */
     }
 
     removeScale() {
-        let constant = 1;
+/*         let constant = 1;
         /* this.#asteroidBelt.scale.set(constant, constant, constant); */
     }
 
@@ -159,7 +159,7 @@ export class AsteroidBelt {
     }
 
     showInfo() {
-        console.log(this.informations);
+        this.informations.print();
     }
 
     getMesh() {

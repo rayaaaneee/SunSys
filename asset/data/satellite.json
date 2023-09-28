@@ -26,6 +26,7 @@
         "hostPlanet": "Earth",
         "orbitColor": "0x00bfff",
         "informations": {
+            "image": "moon.png",
             "diameter": 3475,
             "moyDistanceToHost": 384400,
             "rotationPeriod": 655.728,
@@ -69,6 +70,7 @@
         "hostPlanet": "Jupiter",
         "orbitColor": "0xff4500",
         "informations": {
+            "image": "io.png",
             "diameter": 3637,
             "moyDistanceToHost": 421700,
             "rotationPeriod": 42.456,
@@ -111,6 +113,7 @@
         "hostPlanet": "Jupiter",
         "orbitColor": "0xb0e0e6",
         "informations": {
+            "image": "europa.png",
             "diameter": 3121,
             "moyDistanceToHost": 670900,
             "rotationPeriod": 85.228,
@@ -152,6 +155,7 @@
         "hostPlanet": "Saturn",
         "orbitColor": "0xd2691e",
         "informations": {
+            "image": "titan.png",
             "diameter": 5150,
             "moyDistanceToHost": 1221870,
             "rotationPeriod": 382.68,
@@ -194,6 +198,7 @@
         "hostPlanet": "Saturn",
         "orbitColor": "0x808080",
         "informations": {
+            "image": "enceladus.png",
             "diameter": 504,
             "moyDistanceToHost": 238.020,
             "rotationPeriod": 32.88,
@@ -235,6 +240,7 @@
         "hostPlanet": "Mars",
         "orbitColor": "0x8b0000",
         "informations" : {
+            "image": "phobos.png",
             "diameter": 22.2,
             "moyDistanceToHost": 9378,
             "rotationPeriod": 7.654,
@@ -276,6 +282,7 @@
         "hostPlanet": "Mars",
         "orbitColor": "0xa9a9a9",
         "informations": {
+            "image": "deimos.png",
             "diameter": 12.4,
             "moyDistanceToHost": 23460,
             "rotationPeriod": 30.312,
@@ -316,6 +323,7 @@
         "hostPlanet": "Neptune",
         "orbitColor": "0xadd8e6",
         "informations": {
+            "image": "triton.png",
             "diameter": 2707,
             "moyDistanceToHost": 354800,
             "rotationPeriod": -141.056,
