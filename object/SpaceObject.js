@@ -11,6 +11,10 @@ import { SatelliteInformations } from './informations/SatelliteInformations.js';
 // Classe mère de tous les objets de l'espace
 export class SpaceObject {
 
+    static constantSatelliteAddScale = 1.15;
+    static constantPlanetAddScale = 1.10;
+    static constantSunAddScale = 1.05;
+
     // Attributs
     around = 3; // Arrondi des coordonnées
 
@@ -58,6 +62,7 @@ export class SpaceObject {
     oldRotate; // Mémorise la rotation de la planète avant l'alignement des planetes
 
     informations;
+    isHovered = false;
 
     constructor(solarSystem, name, variableName, texture, initCoords, moveCoords, scaleCoords, rotationCoords, speedCoef, hostPlanet, informations) {
 
@@ -108,8 +113,10 @@ export class SpaceObject {
             this.defineLinkWithHostPlanet();
             if (this.isSatellite()) {
                 this.#hostPlanet.addSatellite(this);
+                this.#hostPlanet.addSatelliteToMesh(this);
             } else {
                 this.solarSystem.scene.add(this.#mesh);
+                this.solarSystem.sun.addSatellite(this);
             }
         } else {
             this.solarSystem.scene.add(this.#mesh);
@@ -273,7 +280,7 @@ export class SpaceObject {
     }
 
     isPlanet() {
-        return !this.isSatellite();
+        return !this.isSatellite() && !this.isSun();
     }
 
     isSun() {
@@ -292,16 +299,61 @@ export class SpaceObject {
     }
 
     showInfo() {
-        console.log(this.informations);
+        this.informations.print();
     }
 
     setInformations(informations) {
         if (this.isSun()) {
-            this.informations = new StarInformations(informations);
+            this.informations = new StarInformations(this, informations);
         } else if (this.isPlanet()) {
-            this.informations = new PlanetInformations(informations);
+            this.informations = new PlanetInformations(this, informations);
         } else {
-            this.informations = new SatelliteInformations(informations);
+            this.informations = new SatelliteInformations(this, informations);
         }
+    }
+
+    addScale() {
+        let constant; 
+        if (this.isSun()) {
+            constant = SpaceObject.constantSunAddScale;
+        } else if (this.isPlanet()) {
+            constant = SpaceObject.constantPlanetAddScale;
+        } else {
+            constant = SpaceObject.constantSatelliteAddScale;
+        }
+
+        let newScale = {
+            x: this.scale.x * constant,
+            y: this.scale.y * constant,
+            z: this.scale.z * constant
+        }
+        this.#mesh.scale.set(newScale.x, newScale.y, newScale.z);
+    }
+
+    removeScale() {
+        this.#mesh.scale.set(this.scale.x, this.scale.y, this.scale.z);
+        if (this.isSatellite()) {
+            this.constantScale = 1;
+        }
+    }
+
+    onHover() {
+        this.addScale();
+        this.addLight();
+
+        if ((this.isPlanet() || this.isSun())) {
+            this.getSatellites().forEach(satellite => {
+                satellite.addLight(false);
+            });
+        }
+
+        this.isHovered = true;
+    }
+
+    onHoverOut() {
+        this.removeScale();
+        this.removeLight();
+
+        this.isHovered = false;
     }
 }

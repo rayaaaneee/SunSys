@@ -1,4 +1,9 @@
+import { SolarSystem } from "../SolarSystem";
+
 export class StarInformations {
+
+    // Objet de la ceinture originale
+    star;
 
     // Type d'etoile
     type;
@@ -17,14 +22,16 @@ export class StarInformations {
     // Composition
     composition;
 
-    constructor (informations) {
-        this.type = informations.type;
-        this.age = informations.age;
-        this.mass = informations.mass;
-        this.diameter = informations.diameter;
-        this.surfaceTemperature = informations.surfaceTemperature;
-        this.interiorTemperature = informations.interiorTemperature;
-        this.luminosity = informations.luminosity;
-        this.composition = informations.composition;
+    constructor (origin, informations) {
+        this.star = origin;
+        for (let key in informations) {
+            this[key] = informations[key];
+        }
+    }
+
+    print() {
+        SolarSystem.infoObjectsContent.innerHTML = `
+            <p>${this.star.name}</p>
+        `;
     }
 }

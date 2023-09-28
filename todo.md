@@ -1,14 +1,11 @@
 ## Vision camera pour chaque planete + boutons navigation
 
-## Clic sur une planete pour récupérer des informations sur celle-ci
-
 ## Ajouter un bouton pour revenir à la vue initiale
 
 ## Traduire le tout en anglais
 
 ## Ajouter les ombres des planètes
 
-// Réparer l'orbite des satellites, les points sont tracés étrangement lors du repassage
+## Séparer les satellites de la Terre (dans la scène) pour regler le problème du décalage de satellite au Hover de la planète hote.
 
-// La plenete tourne en même temps que les satellites, il faut donc
-// Séparer les satellites de la Terre (dans la scène) pour regler le problème
+## Ajouter une augmentation du scale des asteroides au hover de la ceinture

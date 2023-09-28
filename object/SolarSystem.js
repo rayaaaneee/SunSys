@@ -15,6 +15,10 @@ import { Camera } from './Camera';
 
 export class SolarSystem {
 
+    // Zone d'affichage d'informations surles objets célestes
+    static infoObjects = document.getElementById('infoObject');
+    static infoObjectsContent = SolarSystem.infoObjects.querySelector(".content");
+
     ticks = 0;
 
     // Initialisation of the scene / camera / renderer
@@ -54,6 +58,9 @@ export class SolarSystem {
     // Ensemble des ceintures d'astéroides
     mainAsteroidBelt; kuiperBelt;
     belts = [];
+
+    // Astres + ceintures d'astéroides
+    allObjects = [];
 
     // Valeurs
     baseSpeed = 0.0001;
@@ -457,6 +464,8 @@ export class SolarSystem {
 
         this.spaceObjects = [this.sun, ...this.planets, ...this.satellites];
 
+        this.allObjects = [ ...this.spaceObjects, ...this.belts ]
+
         this.pointLight.position.set(0, 0, 0);
         this.scene.add(this.pointLight);
     }
@@ -478,11 +487,8 @@ export class SolarSystem {
             ...this.belts.map((belt) => belt.getMesh())
         ] );
 
-        this.spaceObjects.forEach((spaceObject) => {
-            spaceObject.removeLight();
-        });
-        this.belts.forEach((belt) => {
-            belt.removeLight();
+        this.allObjects.forEach((object) => {
+            object.onHoverOut();
         });
         document.body.classList.remove("pointer");
 
@@ -490,9 +496,10 @@ export class SolarSystem {
         for ( let i = 0; i < intersects.length; i ++ ) {
             let object = intersects[ i ].object;
             if ( intersects[ i ].object.isMesh) {
-                this[object.name].addLight();
+                this[object.name].onHover();
                 if (this.currentlyClicked) {
                    this[object.name].showInfo();
+                   SolarSystem.infoObjects.classList.add("show");
                 }
             }
         }

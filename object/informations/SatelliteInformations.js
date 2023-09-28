@@ -1,4 +1,9 @@
+import { SolarSystem } from "../SolarSystem";
+
 export class SatelliteInformations {
+
+    // Objet du satellite original
+    satellite;
 
     // Diamètre (en kilomètres)
     diameter;
@@ -13,12 +18,16 @@ export class SatelliteInformations {
     // Caractériques
     caracteristics;
 
-    constructor (informations) {
-        this.diameter = informations.diameter;
-        this.moyDistanceToHost = informations.moyDistanceToHost;
-        this.rotationPeriod = informations.rotationPeriod;
-        this.revolutionPeriod = informations.revolutionPeriod;
-        this.composition = informations.composition;
-        this.caracteristics = informations.caracteristics;
+    constructor (origin, informations) {
+        this.satellite = origin;
+        for (let key in informations) {
+            this[key] = informations[key];
+        }
+    }
+
+    print() {
+        SolarSystem.infoObjectsContent.innerHTML = `
+            <p>${this.satellite.name}</p>
+        `;
     }
 }

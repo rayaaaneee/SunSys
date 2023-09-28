@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Nexa'; /* Nom de votre police personnalisée */
-  src: url('asset/font/Nexa-ExtraLight.woff2') format('woff2'), /* Chemin vers le fichier WOFF2 */
-       url('asset/font/Nexa-Heavy.woff2') format('woff2'); /* Chemin vers le fichier WOFF */
+  src: url('../font/Nexa-ExtraLight.woff2') format('woff2'), /* Chemin vers le fichier WOFF2 */
+       url('../font/Nexa-Heavy.woff2') format('woff2'); /* Chemin vers le fichier WOFF */
   font-weight: normal;
   font-style: normal;
 }

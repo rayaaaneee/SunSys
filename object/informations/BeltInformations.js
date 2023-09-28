@@ -1,4 +1,9 @@
+import { SolarSystem } from "../SolarSystem";
+
 export class BeltInformations {
+
+    // Objet de la ceinture originale
+    belt;
 
     // Emplacement de la ceinture d'asteroides
     location;
@@ -9,10 +14,16 @@ export class BeltInformations {
     // Caractéristiques de la ceinture d'asteroides
     caracteristics;
 
-    constructor(informations) {
-        this.location = informations.location;
-        this.composition = informations.composition;
-        this.numberOfAsteroids = informations.numberOfAsteroids;
-        this.caracteristics = informations.caracteristics;
+    constructor(origin, informations) {
+        this.belt = origin;
+        for (let key in informations) {
+            this[key] = informations[key];
+        }
+    }
+
+    print() {
+        SolarSystem.infoObjectsContent.innerHTML = `
+            <p>${this.belt.name}</p>
+        `;
     }
 }

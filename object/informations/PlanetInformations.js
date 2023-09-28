@@ -1,4 +1,9 @@
+import { SolarSystem } from "../SolarSystem";
+
 export class PlanetInformations {
+
+    // Objet de la planète originale
+    planet;
 
     // Distance moyenne au soleil (en millions de kilomètres)
     moyDistance;
@@ -17,14 +22,16 @@ export class PlanetInformations {
     // Composition chimique
     composition;
 
-    constructor(informations) {
-        this.moyDistance = informations.moyDistance;
-        this.revolutionPeriod = informations.revolutionPeriod;
-        this.rotationPeriod = informations.rotationPeriod;
-        this.moyTemperature = informations.moyTemperature;
-        this.moyOrbitSpeed = informations.moyOrbitSpeed;
-        this.mass = informations.mass;
-        this.diameter = informations.diameter;
-        this.composition = informations.composition;
+    constructor(origin, informations) {
+        this.planet = origin;
+        for (let key in informations) {
+            this[key] = informations[key];
+        }
+    }
+
+    print() {
+        SolarSystem.infoObjectsContent.innerHTML = `
+            <p>${this.planet.name}</p>
+        `;
     }
 }

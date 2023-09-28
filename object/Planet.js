@@ -57,6 +57,9 @@ export class Planet extends SpaceObject {
 
     addSatellite(satellite) {
         this.#satellites.push(satellite);
+    }
+
+    addSatelliteToMesh(satellite) {
         this.getMesh().add(satellite.getMesh());
     }
 
@@ -103,7 +106,6 @@ export class Planet extends SpaceObject {
     }
 
     getSatellites() {
-        if (!this.hasSatellite()) return null;
         return this.#satellites;
     }
 

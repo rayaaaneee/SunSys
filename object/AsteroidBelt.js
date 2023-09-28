@@ -33,6 +33,8 @@ export class AsteroidBelt {
 
     #variableName;
 
+    #radiusTab = [];
+
     // Utilitaires
     #texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
 
@@ -58,13 +60,14 @@ export class AsteroidBelt {
             this.#addAsteroid();
         }
 
-        this.informations = new BeltInformations(informations);
+        this.informations = new BeltInformations(this, informations);
     }
 
     #addAsteroid() {
 
         // On définit le rayon et le détail
         let randRadius = Math.random() * this.#radius;
+        this.#radiusTab.push(randRadius);
 
         // On définit la géometrie avec du hasard
         let asteroidGeometry;
@@ -96,11 +99,10 @@ export class AsteroidBelt {
 
         // On choisit le Z négatif ou positif
         let negativeZ = (Math.random() * 2) >= 1 ? -1 : 1; 
-        asteroid.position.set(
-            minDistanceX + Math.random() * (maxDistanceX - minDistanceX), 
-            minDistanceY + Math.random() * (maxDistanceY - minDistanceY), 
-            Math.random() * this.#deltaZ * negativeZ
-        );
+        let x = minDistanceX + Math.random() * (maxDistanceX - minDistanceX);
+        let y = minDistanceY + Math.random() * (maxDistanceY - minDistanceY);
+        let z = Math.random() * this.#deltaZ * negativeZ;
+        asteroid.position.set(x, y, z);
 
         asteroid.rotation.set(
             Math.random() * Math.PI * 2,
@@ -131,6 +133,29 @@ export class AsteroidBelt {
         this.#asteroidBelt.children.forEach(asteroid => {
             asteroid.material.color.setHex(0xffffff);
         });
+    }
+
+    addScale() {
+        let constant = 1.2;
+        this.#asteroidBelt.children.forEach((asteroid, index) => {
+            /* this.#radiusTab[index] * constant, 
+            asteroid.setRadius(this.#radiusTab[index] * constant); */
+        });
+    }
+
+    removeScale() {
+        let constant = 1;
+        /* this.#asteroidBelt.scale.set(constant, constant, constant); */
+    }
+
+    onHover() {
+        this.addLight();
+        this.addScale();
+    }
+
+    onHoverOut() {
+        this.removeLight();
+        this.removeScale();
     }
 
     showInfo() {

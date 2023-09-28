@@ -253,6 +253,12 @@ const printKuiperAsteroidBelt = (checkbox) => {
     }
 }
 
+const infoObjects = document.getElementById('infoObject');
+const closeInfoButton = document.getElementById('closeInfo');
+closeInfoButton.addEventListener('click', (e) => {
+    infoObjects.classList.remove('show');
+});
+
 window.addEventListener('keydown', (e) => {
     e.key === " " && stopTime(stopTimeButton);
 });
