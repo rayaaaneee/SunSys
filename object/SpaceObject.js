@@ -112,11 +112,10 @@ export class SpaceObject {
             this.defineLinkWithHostPlanet();
             if (this.isSatellite()) {
                 this.#hostPlanet.addSatellite(this);
-                this.#hostPlanet.addSatelliteToMesh(this);
             } else {
-                this.solarSystem.scene.add(this.#mesh);
                 this.solarSystem.sun.addSatellite(this);
             }
+            this.solarSystem.scene.add(this.#mesh);
         } else {
             this.solarSystem.scene.add(this.#mesh);
         }
@@ -138,12 +137,7 @@ export class SpaceObject {
     }
 
     updateLinkWithHostPlanet() {
-        let planetPosition;
-        if (this.isSatellite()) {
-            planetPosition = this.getWorldCoords();
-        } else {
-            planetPosition = this.getMesh().position;
-        }
+        let planetPosition = this.getMesh().position;
         this.linkToHost.geometry.setFromPoints([this.#hostPlanet.getMesh().position, planetPosition]);
         // Empeche la ligne de disparaitre si la camera est trop proche
         this.linkToHost.geometry.computeBoundingSphere();
@@ -173,38 +167,6 @@ export class SpaceObject {
         this.getMesh().position.y = position.y;
     }
 
-    // Fonction qui retourne les coordonnées globales d'un satellite. Si des coordonnées sont passées, on retourne les coordonnées globales pour ces coordonnées précises, en prenant en compte la position intermédiaire de la planète hôte
-    getWorldCoords(coords = null) {
-        let position;
-        if (coords) {
-
-            let satelliteCoords = coords.satelliteCoords;
-            let hostPlanetCoords = coords.hostPlanetCoords;
-            let hostPlanetRotation = coords.hostPlanetRotation;
-
-            // On instancie une nouvelle Mesh pour ne pas altérer la planète hote courante, on l'ajoute ensuite à la scene pour pouvoir utiliser la fonction localToWorld
-            let planetMeshClone = this.#hostPlanet.getMesh().clone();
-            planetMeshClone.visible = false;
-            this.solarSystem.scene.add(planetMeshClone);
-
-            // On lui donne les bonnes coordonnées puis on récupère les coordonnées globales
-            planetMeshClone.position.set(hostPlanetCoords.x, hostPlanetCoords.y, hostPlanetCoords.z);
-            planetMeshClone.rotation.set(hostPlanetRotation.x, hostPlanetRotation.y, hostPlanetRotation.z);
-            position = planetMeshClone.localToWorld(satelliteCoords);
-
-            // On supprime la planète hote clonée de la scène
-            this.solarSystem.scene.remove(planetMeshClone);
-        } else {
-            position = this.#hostPlanet.getMesh().localToWorld(this.#mesh.position.clone());
-        }
-
-        return {
-            x: position.x.toFixed(this.around),
-            y: position.y.toFixed(this.around),
-            z: position.z.toFixed(this.around)
-        }
-    }
-
     rotate(tick) {
         let rotation = this.getRotation(tick);
         this.#mesh.rotation.set(rotation.x, rotation.y, rotation.z);
@@ -216,6 +178,14 @@ export class SpaceObject {
         let z = (this.rotateCoord.z * tick).toFixed(this.around);
 
         return new Euler(x, y, z);
+    }
+
+    getRotationType() {
+        if (this.rotateCoord.z >= 0) {
+            return "Directe";
+        } else {
+            return "Retrograde";
+        }
     }
 
     addRing(innerRadius, outerRadius, thetaSegments, phiSegments, texture, isTransparent, opacity, rotationCoords, position = [0, 0, 0]) {

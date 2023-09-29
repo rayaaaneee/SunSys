@@ -1,3 +1,5 @@
+import { isProduction } from "../../function/isProduction";
+import { stringifyNumber } from "../../function/stringifyNumber"
 import { SolarSystem } from "../SolarSystem";
 
 export class PlanetInformations {
@@ -6,6 +8,10 @@ export class PlanetInformations {
 
     // Objet de la planète originale
     planet;
+
+    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
+
+    isGaseous;
 
     // Distance moyenne au soleil (en millions de kilomètres)
     moyDistance;
@@ -21,6 +27,10 @@ export class PlanetInformations {
     mass;
     // Diamètre (en kilomètres)
     diameter;
+    // Climat
+    climate;
+    // Caractériques météorologiques
+    weather;
     // Composition chimique
     composition;
 
@@ -34,7 +44,7 @@ export class PlanetInformations {
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="./asset/img/info-image/${this.image}"/>
+                <img src="/${this.path + this.image}"/>
                 <p class="title">${this.planet.name}</p>
             </div>
             <div class="line">
@@ -42,32 +52,48 @@ export class PlanetInformations {
                 <p class="subtitle">Sun</p>
             </div>
             <div class="line">
+                <p class="subtitle">Type : </p>
+                <p>${this.isGaseous ? 'Géante gazeuse' : 'Rocheuse' }</p>
+            </div>
+            <div class="line vertical">
+                <p class="subtitle">• Climat : <p>
+                <p>${this.climate}<p>
+            </div>
+            <div class="line vertical">
+                <p class="subtitle">• Caractéristiques météorologiques : <p>
+                <p>${this.weather}<p>
+            </div>
+            <div class="line">
                 <p class="subtitle">Distance moyenne au soleil : </p>
-                <p>${this.moyDistance} millions de kilomètres</p>
+                <p>${stringifyNumber(this.moyDistance)} millions de kilomètres</p>
             </div>
             <div class="line">
                 <p class="subtitle">Période de révolution : </p>
-                <p>${this.revolutionPeriod} jours</p>
+                <p>${stringifyNumber(this.revolutionPeriod)} jours</p>
             </div>
             <div class="line">
                 <p class="subtitle">Période de rotation : </p>
-                <p>${this.rotationPeriod} heures</p>
+                <p>${stringifyNumber(Math.abs(this.rotationPeriod))} heures</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Sens de rotation : </p>
+                <p>${this.planet.getRotationType()}</p>
             </div>
             <div class="line">
                 <p class="subtitle">Température moyenne à la surface : </p>
-                <p>${this.moyTemperature} °C</p>
+                <p>${stringifyNumber(this.moyTemperature)} °C</p>
             </div>
             <div class="line">
                 <p class="subtitle">Vitesse d'orbite moyenne : </p>
-                <p>${this.moyOrbitSpeed} km/s</p>
+                <p>${stringifyNumber(this.moyOrbitSpeed)} km/s</p>
             </div>
             <div class="line">
                 <p class="subtitle">Masse : </p>
-                <p>${this.mass} masses terrestres</p>
+                <p>${stringifyNumber(this.mass)} masses terrestres</p>
             </div>
             <div class="line">
                 <p class="subtitle">Diamètre : </p>
-                <p>${this.diameter} km</p>
+                <p>${stringifyNumber(this.diameter)} km</p>
             </div>
             <div class="line">
                 <p class="subtitle">Composition : </p>

@@ -18,6 +18,9 @@ export class SolarSystem {
     // Zone d'affichage d'informations surles objets célestes
     static infoObjects = document.getElementById('infoObject');
     static infoObjectsContent = SolarSystem.infoObjects.querySelector(".content");
+    static crossInfoObjects = SolarSystem.infoObjects.querySelector("#closeInfo");
+
+    isShowingObjectInformation = false;
 
     ticks = 0;
 
@@ -222,13 +225,25 @@ export class SolarSystem {
 
     hideSatellites() {
         this.satellites.forEach((satellite) => {
-            satellite.getHostPlanet().getMesh().remove(satellite.getMesh());
+            this.scene.remove(satellite.getMesh());
         });
     }
 
     showSatellites() {
         this.satellites.forEach((satellite) => {
-            satellite.getHostPlanet().getMesh().add(satellite.getMesh());
+            this.scene.add(satellite.getMesh());
+        });
+    }
+
+    hidePlanets() {
+        this.planets.forEach((planet) => {
+            this.scene.remove(planet.getMesh());
+        });
+    }
+
+    showPlanets() {
+        this.planets.forEach((planet) => {
+            this.scene.add(planet.getMesh());
         });
     }
 
@@ -501,8 +516,15 @@ export class SolarSystem {
             if ( intersects[ i ].object.isMesh) {
                 this[object.name].onHover();
                 if (this.currentlyClicked) {
-                   this[object.name].showInfo();
-                   SolarSystem.infoObjects.classList.add("show");
+                    SolarSystem.infoObjectsContent.scrollTo({ top: 0 })
+                    if (this.isShowingObjectInformation) {
+                        SolarSystem.crossInfoObjects.click();
+                    }
+                    setTimeout(() => {
+                        this.isShowingObjectInformation = true;
+                        this[object.name].showInfo();
+                        SolarSystem.infoObjects.classList.add("show");
+                    }, 300);
                 }
             }
         }

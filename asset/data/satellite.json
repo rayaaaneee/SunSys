@@ -9,18 +9,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 3, 
-            "y" : 2.8
+            "x" : 0.6, 
+            "y" : 0.55
         },
         "scaleCoords": {
-            "x" : 0.5, 
-            "y" : 0.5, 
-            "z" : 0.5
+            "x" : 0.1, 
+            "y" : 0.1, 
+            "z" : 0.1
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.005
         },
         "speedCoef": 8,
         "hostPlanet": "Earth",
@@ -53,18 +53,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x": 2.4,
-            "y": 2.1
+            "x": 0.7,
+            "y": 0.65
         },
         "scaleCoords": {
-            "x" : 0.52,
-            "y" : 0.52,
-            "z" : 0.52
+            "x" : 0.105,
+            "y" : 0.105,
+            "z" : 0.105
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.071 
         },
         "speedCoef": 20,
         "hostPlanet": "Jupiter",
@@ -96,18 +96,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 4, 
-            "y" : 3.8
+            "x" : 0.9, 
+            "y" : 0.82
         },
         "scaleCoords": {
-            "x" : 0.45, 
-            "y" : 0.45, 
-            "z" : 0.45
+            "x" : 0.09, 
+            "y" : 0.09, 
+            "z" : 0.09
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.14
         },
         "speedCoef": 24,
         "hostPlanet": "Jupiter",
@@ -138,18 +138,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 5, 
-            "y" : 4.8
+            "x" : 1, 
+            "y" : 0.93
         },
         "scaleCoords": {
-            "x" : 0.74, 
-            "y" : 0.74, 
-            "z" : 0.74
+            "x" : 0.13, 
+            "y" : 0.13, 
+            "z" : 0.13
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.6
         },
         "speedCoef": 12,
         "hostPlanet": "Saturn",
@@ -181,18 +181,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 3, 
-            "y" : 2.8
+            "x" : 0.6, 
+            "y" : 0.55
         },
         "scaleCoords": {
-            "x" : 0.3, 
-            "y" : 0.3, 
-            "z" : 0.3
+            "x" : 0.06, 
+            "y" : 0.06, 
+            "z" : 0.06
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.026 
         },
         "speedCoef": 18,
         "hostPlanet": "Saturn",
@@ -223,18 +223,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 3, 
-            "y" : 2.6
+            "x" : 0.3, 
+            "y" : 0.26
         },
         "scaleCoords": {
-            "x" : 0.2, 
-            "y" : 0.2, 
-            "z" : 0.2
+            "x" : 0.04, 
+            "y" : 0.04, 
+            "z" : 0.04
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.014 
         },
         "speedCoef": 6,
         "hostPlanet": "Mars",
@@ -265,18 +265,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 4.5,
-            "y" : 3.9
+            "x" : 0.4,
+            "y" : 0.34
         },
         "scaleCoords": {
-            "x" : 0.15, 
-            "y" : 0.15, 
-            "z" : 0.15
+            "x" : 0.03, 
+            "y" : 0.03, 
+            "z" : 0.03
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : 0.005
         },
         "speedCoef": 9,
         "hostPlanet": "Mars",
@@ -306,18 +306,18 @@
             "z" : 0
         },
         "moveCoords": {
-            "x" : 3, 
-            "y" : 2.8
+            "x" : 0.55, 
+            "y" : 0.51
         },
         "scaleCoords": {
-            "x" : 0.38, 
-            "y" : 0.38, 
-            "z" : 0.38
+            "x" : 0.08, 
+            "y" : 0.08, 
+            "z" : 0.08
         },
         "rotationCoords": {
             "x" : 0, 
             "y" : 0, 
-            "z" : 0.02
+            "z" : -0.027
         },
         "speedCoef": 12,
         "hostPlanet": "Neptune",
@@ -337,6 +337,6 @@
               "Triton est la plus grande lune de Neptune et possède une atmosphère très mince.",
               "Il orbite autour de Neptune dans le sens opposé à la rotation de la planète."
             ]
-          }
+        }
     }
 ]

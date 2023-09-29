@@ -6,6 +6,8 @@ export class AsteroidBelt {
 
     name;
 
+    solarSystem;
+
     // Taille max des asteroides
     #radius = 0.1;
 
@@ -25,8 +27,6 @@ export class AsteroidBelt {
     // Assets
     #asteroidBelt = new Group();
 
-    #solarSystem;
-
     #textureLoader = new TextureLoader();
 
     #textures = [];
@@ -39,7 +39,7 @@ export class AsteroidBelt {
     #texturePath = isProduction("./assets/texture/", "./asset/img/texture/");
 
     constructor(solarSystem, name, variableName, minDistanceX, minDistanceY, beltRadius, nbAsteroids, textures, informations) {
-        this.#solarSystem = solarSystem;
+        this.solarSystem = solarSystem;
 
         this.name = name;
         this.#asteroidBelt.name = name;
@@ -116,11 +116,11 @@ export class AsteroidBelt {
     }
 
     add() {
-        this.#solarSystem.scene.add(this.#asteroidBelt);
+        this.solarSystem.scene.add(this.#asteroidBelt);
     }
 
     remove() {
-        this.#solarSystem.scene.remove(this.#asteroidBelt);
+        this.solarSystem.scene.remove(this.#asteroidBelt);
     }
 
     addLight() {

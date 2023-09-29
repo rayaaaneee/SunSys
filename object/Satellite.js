@@ -69,37 +69,29 @@ export class Satellite extends SpaceObject {
 
     // Tracage de points qui prend en compte les inversions du temps, on peut forcer le tracage de point pour un tick définit, sinon pour le tick courant
     tracePoint(tick = null) {
-        if (this.#hasOverflowPath) {
-            if (this.solarSystem.ticks === this.solarSystem.startTracingOrbitTick) {
-                // On a atteint le tick d'inversion, il n'y a plus rien à effacer
-                this.removeCurrentPoint();
-                this.#hasOverflowPath = false;
+        if (!this.solarSystem.areAlignedPlanets) {
+            if (this.#hasOverflowPath) {
+                if (this.solarSystem.ticks === this.solarSystem.startTracingOrbitTick) {
+                    // On a atteint le tick d'inversion, il n'y a plus rien à effacer
+                    this.removeCurrentPoint();
+                    this.#hasOverflowPath = false;
+                } else {
+                    // On a pas atteint le tick d'inversion, on efface des points
+                    this.removeCurrentPoint()
+                };
             } else {
-                // On a pas atteint le tick d'inversion, on efface des points
-                this.removeCurrentPoint()
+                // Il n'y a rien a effacer, on pose des points
+                this.setNewPoint(tick)
             };
-        } else {
-            // Il n'y a rien a effacer, on pose des points
-            this.setNewPoint(tick)
-        };
+        }
     }
 
     setNewPoint(tick = null){
         let currentPoint;
         if (tick) {
-            let currentPosition = this.getPosition(tick);
-            let hostPlanetCurrentPosition = this.getHostPlanet().getPosition(tick);
-            let hostPlanetCurrentRotation = this.getHostPlanet().getRotation(tick);
-
-            let coords = {
-                satelliteCoords: currentPosition,
-                hostPlanetCoords: hostPlanetCurrentPosition,
-                hostPlanetRotation: hostPlanetCurrentRotation
-            }
-
-            currentPoint = this.getWorldCoords(coords);
+            currentPoint = this.getPosition(tick);
         } else {
-            currentPoint = this.getWorldCoords();
+            currentPoint = this.getMesh().position;
         }
 
         const geometry = this.#points.geometry;
@@ -117,11 +109,10 @@ export class Satellite extends SpaceObject {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
         let speed = this.speedCoefficient * this.#baseSpeed;
 
-        // Récupérer l'angle de la planete hote pour le soustraire à teta
-        let angleHost = this.getHostPlanet().getRotation(tick).z;
+        let hostPlanetPosition = this.getHostPlanet().getPosition(tick);
 
-        let x = (this.moveCoord.x * (Math.cos((tick * speed) - angleHost))).toFixed(this.around);
-        let y = (this.moveCoord.y * (Math.sin((tick * speed) - angleHost))).toFixed(this.around);
+        let x = parseFloat((hostPlanetPosition.x + (this.moveCoord.x * (Math.cos(tick * speed)))).toFixed(this.around));
+        let y = parseFloat((hostPlanetPosition.y + (this.moveCoord.y * (Math.sin(tick * speed)))).toFixed(this.around));
 
         return new Vector3(x, y, 0);
     }

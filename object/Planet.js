@@ -59,15 +59,11 @@ export class Planet extends SpaceObject {
         this.#satellites.push(satellite);
     }
 
-    addSatelliteToMesh(satellite) {
-        this.getMesh().add(satellite.getMesh());
-    }
-
     getPosition(tick) {
         // On diminue le nombre de décimales pour éviter les problèmes de précision
         let speed = this.speedCoefficient * this.#baseSpeed;
-        let x = (this.moveCoord.x * (Math.cos(tick * speed))).toFixed(this.around);
-        let y = (this.moveCoord.y * (Math.sin(tick * speed))).toFixed(this.around);
+        let x = parseFloat((this.moveCoord.x * (Math.cos(tick * speed))).toFixed(this.around));
+        let y = parseFloat((this.moveCoord.y * (Math.sin(tick * speed))).toFixed(this.around));
 
         return new Vector3(x, y, 0);
     }

@@ -1,3 +1,5 @@
+import { isProduction } from "../../function/isProduction";
+import { stringifyNumber } from "../../function/stringifyNumber";
 import { SolarSystem } from "../SolarSystem";
 
 export class SatelliteInformations {
@@ -6,6 +8,8 @@ export class SatelliteInformations {
 
     // Objet du satellite original
     satellite;
+
+    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
 
     // Diamètre (en kilomètres)
     diameter;
@@ -30,7 +34,7 @@ export class SatelliteInformations {
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="./asset/img/info-image/${this.image}"/>
+                <img src="${this.path + this.image}"/>
                 <p class="title">${this.satellite.name}</p>
             </div>
             <div class="line">
@@ -39,19 +43,23 @@ export class SatelliteInformations {
             </div>
             <div class="line">
                 <p class="subtitle">Diamètre : </p>
-                <p>${this.diameter} kilomètres</p>
+                <p>${stringifyNumber(this.diameter)} kilomètres</p>
             </div>
             <div class="line">
                 <p class="subtitle">Distance moyenne de ${this.satellite.getHostPlanet().name} : </p>
-                <p>${this.moyDistanceToHost} kilomètres</p>
-            </div>
-            <div class="line">
-                <p class="subtitle">Période de rotation : </p>
-                <p>${this.rotationPeriod} heures</p>
+                <p>${stringifyNumber(this.moyDistanceToHost)} kilomètres</p>
             </div>
             <div class="line">
                 <p class="subtitle">Période de révolution : </p>
-                <p>${this.revolutionPeriod} jours</p>
+                <p>${stringifyNumber(this.revolutionPeriod)} jours</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Période de rotation : </p>
+                <p>${stringifyNumber(Math.abs(this.rotationPeriod))} heures</p>
+            </div>
+            <div class="line">
+                <p class="subtitle">Sens de rotation : </p>
+                <p>${this.satellite.getRotationType()}</p>
             </div>
             <div class="line">
                 <p class="subtitle">Composition : </p>

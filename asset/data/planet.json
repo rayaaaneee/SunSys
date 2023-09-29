@@ -37,6 +37,7 @@
             "interiorTemperature": 15000000,
             "luminosity": "3.828 * 10^26",
             "rotationPeriod": 25.38,
+            "isGaseous": false,
             "composition": {
               "Hydrogène": "74%",
               "Hélium": "24%",
@@ -80,6 +81,9 @@
             "moyOrbitSpeed": 47.87,
             "mass": 0.055,
             "diameter": 4879,
+            "isGaseous": false,
+            "climate": "Extrêmement variable en raison de l'absence d'atmosphère significative",
+            "weather": "Les températures varient énormément, passant de plus de 400°C côté jour à moins de -180°C la nuit. Les journées sont brûlantes et les nuits glaciales.",
             "composition": {
               "Fer": "35%",
               "Silicium": "29%",
@@ -125,6 +129,9 @@
             "moyOrbitSpeed": 35.02,
             "mass": 0.815,
             "diameter": 12104,
+            "isGaseous": false,
+            "climate": "Atmosphère épaisse principalement composée de dioxyde de carbone, provoquant un effet de serre massif. Des températures élevées et constantes à la surface.",
+            "weather": "Des températures de surface supérieures à 450°C, une pression atmosphérique intense et des nuages d'acide sulfurique.",
             "composition": {
               "Dioxyde de carbone": "96.5%",
               "Azote": "3.5%",
@@ -168,6 +175,9 @@
             "moyOrbitSpeed": 29.78,
             "mass": 1,
             "diameter": 12742,
+            "isGaseous": false,
+            "climate": "Diversifié avec des zones polaires froides, des régions équatoriales chaudes et des climats tempérés entre les deux.",
+            "weather": "Précipitations variées, tempêtes, vents et phénomènes météorologiques variés en fonction de la région.",
             "composition": {
               "Fer": "34.6%",
               "Oxygène": "29.5%",
@@ -213,6 +223,9 @@
             "moyOrbitSpeed": 24.077,
             "mass": 0.107,
             "diameter": 6792,
+            "isGaseous": false,
+            "climate": "Froid et sec dû à une atmosphère mince composée principalement de dioxyde de carbone.",
+            "weather": "Tempêtes de poussière, gel nocturne, températures moyennes bien en dessous de zéro.",
             "composition": {
               "Fer": "15%",
               "Oxygène": "42%",
@@ -257,6 +270,9 @@
             "moyOrbitSpeed": 13.07,
             "mass": 317.8,
             "diameter": 139822,
+            "isGaseous": true,
+            "climate": "Pas de surface solide, mais une atmosphère composée principalement d'hydrogène et d'hélium.",
+            "weather": "Énormes tempêtes, dont la Grande Tache Rouge, et des vents extrêmement rapides.",
             "composition": {
               "Hydrogène": "90%",
               "Hélium": "10%",
@@ -314,6 +330,9 @@
             "moyOrbitSpeed": 9.69,
             "mass": 95.2,
             "diameter": 116464,
+            "isGaseous": true,
+            "climate": "Pas de surface solide, mais une atmosphère d'hydrogène et d'hélium.",
+            "weather": "Des vents extrêmement rapides et des tempêtes, dont une tempête hexagonale au pôle nord. Tempêtes atmosphériques constantes.",
             "composition": {
               "Hydrogène": "96.3%",
               "Hélium": "3.25%",
@@ -357,6 +376,9 @@
             "moyOrbitSpeed": 6.8,
             "mass": 14.6,
             "diameter": 50724,
+            "isGaseous": true,
+            "climate": "Une atmosphère d'hydrogène, d'hélium et de méthane",
+            "weather": "Des vents violents et une inclinaison extrême de l'axe de rotation, ce qui entraîne des saisons inhabituelles",
             "composition": {
               "Hydrogène": "83%",
               "Hélium": "15%",
@@ -401,6 +423,9 @@
             "moyOrbitSpeed": 5.43,
             "mass": 17.2,
             "diameter": 49244,
+            "isGaseous": true,
+            "climate": "Atmosphère composée d'hydrogène, d'hélium et de méthane",
+            "weather": "Les vents les plus rapides du système solaire, de grandes taches sombres et une météo dynamique",
             "composition": {
               "Hydrogène": "80%",
               "Hélium": "19%",
@@ -445,6 +470,9 @@
             "moyOrbitSpeed": 4.67,
             "mass": 0.0022,
             "diameter": 2370,
+            "isGaseous": false,
+            "climate": "Très froid en raison de sa grande distance du Soleil",
+            "weather": "Des vents violents, des températures extrêmement froides, une atmosphère ténue et de la glace d'azote à la surface",
             "composition": {
               "Glaces d'eau": "50-70%",
               "Roches": "30-50%",

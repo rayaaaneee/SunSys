@@ -1,3 +1,5 @@
+import { isProduction } from "../../function/isProduction";
+import { stringifyNumber } from "../../function/stringifyNumber";
 import { SolarSystem } from "../SolarSystem";
 
 export class StarInformations {
@@ -6,6 +8,8 @@ export class StarInformations {
 
     // Objet de la ceinture originale
     star;
+
+    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
 
     // Type d'etoile
     type;
@@ -36,7 +40,7 @@ export class StarInformations {
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="./asset/img/info-image/${this.image}"/>
+                <img src="${this.path + this.image}"/>
                 <p class="title">${this.star.name}</p>
             </div>
             <div class="line">
@@ -53,15 +57,15 @@ export class StarInformations {
             </div>
             <div class="line">
                 <p class="subtitle">Diamètre : </p>
-                <p>${this.diameter} kilomètres</p>
+                <p>${stringifyNumber(this.diameter)} kilomètres</p>
             </div>
             <div class="line">
                 <p class="subtitle">Température de surface : </p>
-                <p>${this.surfaceTemperature}°C</p>
+                <p>${stringifyNumber(this.surfaceTemperature)}°C</p>
             </div>
             <div class="line">
                 <p class="subtitle">Température intérieure : </p>
-                <p>${this.interiorTemperature}°C</p>
+                <p>${stringifyNumber(this.interiorTemperature)}°C</p>
             </div>
             <div class="line">
                 <p class="subtitle">Luminosité : </p>
@@ -69,7 +73,7 @@ export class StarInformations {
             </div>
             <div class="line">
                 <p class="subtitle">Période de rotation : </p>
-                <p>${this.rotationPeriod} heures</p>
+                <p>${stringifyNumber(this.rotationPeriod)} heures</p>
             </div>
             <div class="line">
                 <p class="subtitle">Composition : </p>

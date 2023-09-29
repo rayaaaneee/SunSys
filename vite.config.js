@@ -13,6 +13,10 @@ export default defineConfig({
           src:  'asset/img/texture/*.jpg',
           dest: 'assets/texture/',
         },
+        {
+          src:  'asset/img/info-image/*.png',
+          dest: 'assets/info-image/',
+        }
       ],
     }),
   ]

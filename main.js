@@ -116,6 +116,21 @@ const hideSatellites = (checkbox) => {
     }
 }
 
+const hidePlanetsCheckbox = document.getElementById('hidePlanets');
+hidePlanetsCheckbox.addEventListener('click', (e) => {
+    hidePlanets(e.target);
+});
+const hidePlanets = (checkbox) => {
+    switch (checkbox.checked) {
+        case true:
+            sunSys.hidePlanets();
+            break;
+        case false:
+            sunSys.showPlanets();
+            break;
+    }
+}
+
 const invertTimeCheckbox = document.getElementById('invertTime');
 invertTimeCheckbox.addEventListener('click', (e) => {
     invertTime(e.target);
@@ -256,6 +271,7 @@ const printKuiperAsteroidBelt = (checkbox) => {
 const infoObjects = document.getElementById('infoObject');
 const closeInfoButton = document.getElementById('closeInfo');
 closeInfoButton.addEventListener('click', (e) => {
+    sunSys.isShowingObjectInformation = false;
     infoObjects.classList.remove('show');
 });
 
