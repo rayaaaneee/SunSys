@@ -276,12 +276,12 @@ setCameraInitialPositionButton.addEventListener('click', (e) => {
 
 const infoObjects = document.getElementById('infoObject');
 const closeInfoButton = document.getElementById('closeInfo');
-closeInfoButton.addEventListener('click', (e) => {
-    console.log('close');
-    sunSys.camera.keepFocus = false;
+export const closeInfoButtonClick = () => {
+    sunSys.camera.keepFocus = null;
     sunSys.isShowingObjectInformation = false;
     infoObjects.classList.remove('show');
-});
+}
+closeInfoButton.addEventListener('click', closeInfoButtonClick);
 
 window.addEventListener('keydown', (e) => {
     e.key === " " && stopTime(stopTimeButton);

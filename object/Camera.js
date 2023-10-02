@@ -32,7 +32,7 @@ export class Camera {
         }
     }
 
-    keepFocus = false;
+    keepFocus;
 
     constructor(solarSystem) {
         this.perspectiveCamera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -83,11 +83,11 @@ export class Camera {
         this.perspectiveCamera.position.set(pos.x + 1, pos.y, pos.z + 2);
         this.perspectiveCamera.lookAt(pos.x, pos.y, pos.z);
         this.#solarSystem.controls.target.set(pos.x, pos.y, pos.z);
-        console.log(this.keepFocus);
-        if (this.keepFocus) {
+        console.log(this.keepFocus, object.name);
+        if (this.keepFocus === object.name) {
             setTimeout(() => {
                 this.focusOnObject(object);
-            }, 10);
+            }, 5);
         }
     }
 }

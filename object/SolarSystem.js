@@ -1,5 +1,5 @@
 import { PointLight, AmbientLight, Scene, WebGLRenderer, Object3D, TextureLoader, SphereGeometry, BufferGeometry, Points, Vector2, Vector3, PointsMaterial, Float32BufferAttribute, MeshStandardMaterial, Raycaster } from 'three';
-import { configPanel } from '../main';
+import { configPanel, closeInfoButtonClick } from '../main';
 import { MathUtils } from 'three/src/math/MathUtils';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'stats.js';
@@ -541,17 +541,19 @@ export class SolarSystem {
         // Les éléments survolés sont coloriés
         for ( let i = 0; i < intersects.length; i ++ ) {
             let object = intersects[ i ].object;
-            if ( intersects[ i ].object.isMesh) {
+            if ( object.isMesh) {
                 this[object.name].onHover();
                 if (this.currentlyClicked) {
                     SolarSystem.infoObjectsContent.scrollTo({ top: 0 });
-                    this.camera.keepFocus = true;
-                    this.camera.focusOnObject(this[object.name]);
                     if (this.isShowingObjectInformation) {
-                        SolarSystem.crossInfoObjects.click();
+                        closeInfoButtonClick();
+                    }
+                    this.camera.keepFocus = this[object.name].name;
+                    this.isShowingObjectInformation = true;
+                    if (!this[object.name].isBelt()) {
+                        this.camera.focusOnObject(this[object.name]);
                     }
                     setTimeout(() => {
-                        this.isShowingObjectInformation = true;
                         this[object.name].showInfo();
                         SolarSystem.infoObjects.classList.add("show");
                     }, 300);
