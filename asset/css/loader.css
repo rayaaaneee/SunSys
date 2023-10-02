@@ -53,11 +53,20 @@
     0% {
         opacity: 0;
     }
-
     100% {
         opacity: 1;
         transform: scale(1.1);
     }
+}
+
+#loader .text-container h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.5s ease;
+    animation: 1.5s fade-in 3.5s ease;
+    color: rgb(245, 178, 55);
 }
 
 #loader .text-container * {
