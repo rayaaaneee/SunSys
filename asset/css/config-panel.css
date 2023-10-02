@@ -38,6 +38,11 @@ canvas { width: 100%; height: 90% }
   box-sizing: border-box;
   border-radius: 25px;
   padding: 10px;
+  transition: opacity 0.2s ease;
+}
+
+#configPanel.invisible {
+  opacity: 0;
 }
 
 #configPanel #closePanel {
@@ -211,4 +216,21 @@ input[type="range"]::-webkit-slider-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#setInitialPosition {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+}
+
+#setInitialPosition:hover {
+  background-color: rgba(223, 191, 191, 0.8);
+  cursor: pointer;
+}
+
+#setInitialPosition:active {
+  background-color: rgb(184 128 129);
 }

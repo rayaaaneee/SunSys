@@ -1,9 +1,11 @@
 import { PointLight, AmbientLight, Scene, WebGLRenderer, Object3D, TextureLoader, SphereGeometry, BufferGeometry, Points, Vector2, Vector3, PointsMaterial, Float32BufferAttribute, MeshStandardMaterial, Raycaster } from 'three';
+import { configPanel } from '../main';
 import { MathUtils } from 'three/src/math/MathUtils';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'stats.js';
 import { Planet } from './Planet';
 import { Satellite } from './Satellite';
+import * as TWEEN from '@tweenjs/tween.js';
 
 // JSON des propriétés des planètes
 import planetJson from "../asset/data/planet.json";
@@ -19,6 +21,7 @@ export class SolarSystem {
     static infoObjects = document.getElementById('infoObject');
     static infoObjectsContent = SolarSystem.infoObjects.querySelector(".content");
     static crossInfoObjects = SolarSystem.infoObjects.querySelector("#closeInfo");
+    static loader = document.getElementById("loader");
 
     isShowingObjectInformation = false;
 
@@ -28,7 +31,7 @@ export class SolarSystem {
     pointLight = new PointLight(0xffffff, 10, 100);
     ambientLight = new AmbientLight( 0xffffff );
     scene = new Scene();
-    camera = new Camera();
+    camera = new Camera(this);
     renderer = new WebGLRenderer({ alpha: true, antialias: true });
     stats = new Stats();
 
@@ -36,7 +39,7 @@ export class SolarSystem {
     solarSystem = new Object3D();
 
     // Add controls for the camera
-    controls = new OrbitControls( this.camera.perspectiveCamera, this.renderer.domElement );
+    controls;
 
     // Récupération des coordonnées de la souris
     pointer = new Vector2();
@@ -81,6 +84,7 @@ export class SolarSystem {
     speedMultiplier = 1;
     startTracingOrbitTick = null;
     currentlyClicked = false;
+    isMouseOverCanvas = false;
 
     ticksRenderer = document.getElementById("ticks");
 
@@ -106,6 +110,27 @@ export class SolarSystem {
         window.addEventListener('resize', this.resize.bind(this));
         window.addEventListener('click', this.setIsCurrentlyClicked.bind(this));
         window.addEventListener('pointermove', this.onPointerMove.bind(this));
+        // Ajoutez un gestionnaire d'événements pour pointerenter
+        this.renderer.domElement.addEventListener('pointerenter', () => { this.isMouseOverCanvas = true; });
+        // Ajoutez un gestionnaire d'événements pour pointerleave
+        this.renderer.domElement.addEventListener('pointerleave', () => { 
+            this.isMouseOverCanvas = false;
+            this.pointer.set(window.innerWidth, window.innerHeight);
+        });
+        this.controls = new OrbitControls( this.camera.perspectiveCamera, this.renderer.domElement );
+        this.controls.reset();
+        this.controls.saveState();
+        this.camera.setLoadingTargetControls();
+        window.onload = (e) => {
+            setTimeout(() => {
+                SolarSystem.loader.classList.add("hidden");
+                setTimeout(() => {
+                    SolarSystem.loader.remove();
+                    configPanel.classList.remove("invisible");
+                }, 1000);
+            }, 4000);
+            this.camera.initPosition(3000);
+        };
 
         // De base on place le poiteur au bout de l'écran pour qu'aucun astre ne soit survolé au chargement de la page
         this.pointer.set(window.innerWidth, window.innerHeight);
@@ -121,11 +146,14 @@ export class SolarSystem {
     }
 
     onPointerMove(event) {
-        // Mettre à jour les coordonnées de la souris
-        this.pointer.set(
-            (event.clientX / window.innerWidth) * 2 - 1,
-            -(event.clientY / window.innerHeight) * 2 + 1
-        );
+        // La souris est sur le canvas
+        if (this.isMouseOverCanvas) {
+            // Mettre à jour les coordonnées de la souris uniquement si la souris est sur le canvas
+            this.pointer.set(
+                (event.clientX / window.innerWidth) * 2 - 1,
+                -(event.clientY / window.innerHeight) * 2 + 1
+            );
+        }
     }
 
     printFramesPerSecond() {
@@ -516,7 +544,9 @@ export class SolarSystem {
             if ( intersects[ i ].object.isMesh) {
                 this[object.name].onHover();
                 if (this.currentlyClicked) {
-                    SolarSystem.infoObjectsContent.scrollTo({ top: 0 })
+                    SolarSystem.infoObjectsContent.scrollTo({ top: 0 });
+                    this.camera.keepFocus = true;
+                    this.camera.focusOnObject(this[object.name]);
                     if (this.isShowingObjectInformation) {
                         SolarSystem.crossInfoObjects.click();
                     }
@@ -616,6 +646,7 @@ export class SolarSystem {
         this.updateRaycaster();
         this.renderer.render( this.scene, this.camera.perspectiveCamera );
         this.controls.update();
+        TWEEN.update();
 
         this.currentlyClicked = false;
     }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./asset/css/config-panel.css" />
     <link rel="stylesheet" href="./asset/css/info-object.css" />
+    <link rel="stylesheet" href="./asset/css/loader.css" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script type="module" src="/main.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +16,7 @@
       <article class="content">
       </article>
     </div>
-    <div id="configPanel">
+    <div id="configPanel" class="hidden invisible">
       <div id="closePanel" title="Fermer"></div>
       <img id="hiddenLogo" src="./asset/img/control-panel.png" alt="Panneau de controle" title="Panneau de configuration"/>
       <p class="title-panel">Panneau de configuration</p>
@@ -77,6 +78,10 @@
           <input type="checkbox" id="showFps"/>
         </div>
         <div class="panel-opt">
+          <p class="title-opt">• Revenir à la position initiale</p>
+          <button id="setInitialPosition"/>
+        </div>
+        <div class="panel-opt">
           <p class="title-opt">• Vitesse</p>
           <div class="range-input-container">
             <p>x1</p>
@@ -94,6 +99,13 @@
           <p class="title-opt">• Arrêter le temps</p>
           <button id="stopTime"></button>
         </div>
+      </div>
+    </div>
+    <div id="loader">
+      <img src="./asset/favicon.png" alt="Chargement" draggable="false" />
+      <div class="text-container">
+        <h3>SunSys</h3>
+        <p>Universe Explorer</p>
       </div>
     </div>
     <div id="tag">

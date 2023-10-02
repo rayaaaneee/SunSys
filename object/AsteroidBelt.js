@@ -162,6 +162,22 @@ export class AsteroidBelt {
         this.informations.print();
     }
 
+    isPlanet() {
+        return false;
+    }
+
+    isSatellite() {
+        return false;
+    }
+
+    isSun() {
+        return false;
+    }
+
+    isBelt() {
+        return true;
+    }
+
     getMesh() {
         return this.#asteroidBelt;
     }

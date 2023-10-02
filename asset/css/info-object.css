@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: fit-content;
-    max-width: 600px;
+    max-width: 500px;
     height: 100%;
     background-color: rgb(198 98 98 / 90%);
     display: flex;
@@ -12,7 +12,7 @@
     opacity: 0;
     animation: opacityUp 0.2s forwards 0.1s;
     border-radius: 0 25px 25px 0;
-    transform: translateX(-100%);
+    transform: translateX(-105%);
     transition: transform 0.2s ease-in-out, width 0.1s ease;
     color: white;
 }

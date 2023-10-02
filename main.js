@@ -2,9 +2,9 @@ import { SolarSystem } from './object/SolarSystem';
 
 var sunSys = new SolarSystem();
 
-const configPanel = document.getElementById('configPanel');
+export const configPanel = document.getElementById('configPanel');
 const closePanel = document.getElementById('closePanel');
-let isControlPanelOpen = true;
+let isControlPanelOpen = false;
 closePanel.addEventListener('click', (e) => {
     configPanel.classList.add('hidden');
     setTimeout(() => {
@@ -268,9 +268,17 @@ const printKuiperAsteroidBelt = (checkbox) => {
     }
 }
 
+const setCameraInitialPositionButton = document.getElementById('setInitialPosition');
+setCameraInitialPositionButton.addEventListener('click', (e) => {
+    SolarSystem.crossInfoObjects.click();
+    sunSys.camera.initPosition();
+});
+
 const infoObjects = document.getElementById('infoObject');
 const closeInfoButton = document.getElementById('closeInfo');
 closeInfoButton.addEventListener('click', (e) => {
+    console.log('close');
+    sunSys.camera.keepFocus = false;
     sunSys.isShowingObjectInformation = false;
     infoObjects.classList.remove('show');
 });

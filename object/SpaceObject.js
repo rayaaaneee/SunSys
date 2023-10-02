@@ -7,6 +7,7 @@ import { isProduction } from '../function/isProduction.js';
 import { StarInformations } from './informations/StarInformations.js';
 import { PlanetInformations } from './informations/PlanetInformations.js';
 import { SatelliteInformations } from './informations/SatelliteInformations.js';
+import * as TWEEN from '@tweenjs/tween.js';
 
 // Classe mère de tous les objets de l'espace
 export class SpaceObject {
@@ -296,6 +297,7 @@ export class SpaceObject {
             y: this.scale.y * constant,
             z: this.scale.z * constant
         }
+
         this.#mesh.scale.set(newScale.x, newScale.y, newScale.z);
     }
 
@@ -320,5 +322,9 @@ export class SpaceObject {
     onHoverOut() {
         this.removeScale();
         this.removeLight();
+    }
+
+    isBelt() {
+        return false;
     }
 }
