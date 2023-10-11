@@ -17,7 +17,7 @@ export class BeltInformations {
     // Caractéristiques de la ceinture d'asteroides
     caracteristics;
 
-    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
+    path = isProduction("assets/info-image/", "asset/img/info-image/");
 
     constructor(origin, informations) {
         this.belt = origin;
@@ -29,7 +29,7 @@ export class BeltInformations {
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="${this.path + this.image}"/>
+                <img src="./${this.path + this.image}"/>
                 <p class="title">${this.belt.name}</p>
             </div>
             <div class="line">

@@ -83,7 +83,6 @@ export class Camera {
         this.perspectiveCamera.position.set(pos.x + 1, pos.y, pos.z + 2);
         this.perspectiveCamera.lookAt(pos.x, pos.y, pos.z);
         this.#solarSystem.controls.target.set(pos.x, pos.y, pos.z);
-        console.log(this.keepFocus, object.name);
         if (this.keepFocus === object.name) {
             setTimeout(() => {
                 this.focusOnObject(object);

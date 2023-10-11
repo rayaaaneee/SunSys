@@ -9,7 +9,7 @@ export class SatelliteInformations {
     // Objet du satellite original
     satellite;
 
-    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
+    path = isProduction("assets/info-image/", "asset/img/info-image/");
 
     // Diamètre (en kilomètres)
     diameter;
@@ -32,9 +32,10 @@ export class SatelliteInformations {
     }
 
     print() {
+        console.log(this.path)
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="${this.path + this.image}"/>
+                <img src="./${this.path + this.image}"/>
                 <p class="title">${this.satellite.name}</p>
             </div>
             <div class="line">

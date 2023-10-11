@@ -9,7 +9,7 @@ export class PlanetInformations {
     // Objet de la planète originale
     planet;
 
-    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
+    path = isProduction("assets/info-image/", "asset/img/info-image/");
 
     isGaseous;
 
@@ -42,9 +42,10 @@ export class PlanetInformations {
     }
 
     print() {
+        console.log(this.path)
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="/${this.path + this.image}"/>
+                <img src="./${this.path + this.image}"/>
                 <p class="title">${this.planet.name}</p>
             </div>
             <div class="line">

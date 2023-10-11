@@ -9,7 +9,7 @@ export class StarInformations {
     // Objet de la ceinture originale
     star;
 
-    path = isProduction("./assets/info-image/", "./asset/img/info-image/");
+    path = isProduction("assets/info-image/", "asset/img/info-image/");
 
     // Type d'etoile
     type;
@@ -40,7 +40,7 @@ export class StarInformations {
     print() {
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
-                <img src="${this.path + this.image}"/>
+                <img src="./${this.path + this.image}"/>
                 <p class="title">${this.star.name}</p>
             </div>
             <div class="line">
