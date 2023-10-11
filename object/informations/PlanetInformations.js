@@ -42,7 +42,6 @@ export class PlanetInformations {
     }
 
     print() {
-        console.log(this.path)
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
                 <img src="./${this.path + this.image}"/>
@@ -54,7 +53,7 @@ export class PlanetInformations {
             </div>
             <div class="line">
                 <p class="subtitle">Type : </p>
-                <p>${this.isGaseous ? 'Géante gazeuse' : 'Rocheuse' }</p>
+                <p>${this.isGaseous ? 'Géante gazeuse' : 'Rocheuse'}</p>
             </div>
             <div class="line vertical">
                 <p class="subtitle">• Climat : <p>

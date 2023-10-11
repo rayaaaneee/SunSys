@@ -24,7 +24,7 @@ export class SatelliteInformations {
     // Caractériques
     caracteristics;
 
-    constructor (origin, informations) {
+    constructor(origin, informations) {
         this.satellite = origin;
         for (let key in informations) {
             this[key] = informations[key];
@@ -32,7 +32,6 @@ export class SatelliteInformations {
     }
 
     print() {
-        console.log(this.path)
         SolarSystem.infoObjectsContent.innerHTML = `
             <div class="line title">
                 <img src="./${this.path + this.image}"/>
