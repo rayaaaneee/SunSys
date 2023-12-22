@@ -50,17 +50,11 @@ export class Camera {
 
         // Réinitialisez la position de la caméra à la position initiale
         const initialPosition = this.#initial.position;
-        const initialRotation = this.#initial.rotation;
         
         let tweenPosition = new TWEEN.Tween(this.perspectiveCamera.position)
         .to(initialPosition, timeMs | 500)
         .easing(TWEEN.Easing.Quadratic.InOut);
 
-        let tweenRotation = new TWEEN.Tween(this.perspectiveCamera.rotation)
-        .to(initialRotation, timeMs | 500)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        tweenPosition.chain(tweenRotation);
         tweenPosition.start()
         .onComplete(() => {
             this.#solarSystem.controls.target.set(0, 0, 0);
