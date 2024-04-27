@@ -46,7 +46,7 @@ To use the project, you can use the following commands :
 
 You can also try a builded version of the project at the following address :
 
-> https://vercel-sunsys.vercel.app/
+> https://sunsys.vercel.app/
 
 ## License
 
